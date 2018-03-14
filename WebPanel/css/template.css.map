@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,OAAQ;EACJ,MAAM,EAAE,KAAK;EACb,OAAO,EAAE,GAAG;;AAGhB,QAAS;EACL,KAAK,EAAE,gBAAgB;;AAG3B,cAAe;EACX,gBAAgB,EAbZ,OAAO;;AAgBf,eAAgB;EACZ,gBAAgB,EAhBT,OAAO;;AAkBlB,SAAU;EACN,gBAAgB,EAnBT,OAAO;;AAqBlB,eAAgB;EACZ,gBAAgB,EAtBT,OAAO",
+"sources": ["template.scss"],
+"names": [],
+"file": "template.css"
+}
