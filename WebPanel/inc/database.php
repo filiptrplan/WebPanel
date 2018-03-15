@@ -1,23 +1,32 @@
 <?php
-require 'inc.php';
-$config = parse_ini_file("db.ini");
-class DB {
-  static protected $conn;
+require_once 'inc.php';
 
+class DB {
+  protected $conn;
+  private $success;
   public function __construct(){
     try {
+      $config = parse_ini_file("db.ini");
       $this->conn = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'], $config['username'], $config['password']);
       $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      return 'done';
+      $this->success = true;
     } catch(PDOException $e) {
-      return 'ERROR: ' . $e->getMessage();
+      echo 'ERROR: ' . $e->getMessage();
+      $this->success = false;
     }
   }
 
   /*
+  Checks if the DB is connected
+  */
+  public function isConnected(){
+    return $this->success;
+  }
+  
+  /*
+  Selects query with params
   EXAMPLE Usage:
-  $stmt = $conn->prepare('SELECT * FROM myTable WHERE name = :name');
-  $stmt->execute(array('name' => $name));
+  select('SELECT * FROM myTable WHERE name = :name'), array(':name' => $name));
   */
   public function select($query, $params){
     try {
