@@ -46,6 +46,11 @@ class DB
         }
     }
 
+    /*
+    Executes query with params
+    EXAMPLE Usage:
+    query('DELETE FROM myTable WHERE name = :name'), array(':name' => $name));
+    */
     public function query($query, $params)
     {
         try {
