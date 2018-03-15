@@ -46,7 +46,7 @@ class DB
         }
     }
 
-    public function insert($query, $params)
+    public function query($query, $params)
     {
         try {
             $stmt = $this->conn->prepare($query);
@@ -56,4 +56,5 @@ class DB
             return 'ERROR: ' . $e->getMessage();
         }
     }
+
 }
