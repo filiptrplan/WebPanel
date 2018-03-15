@@ -14,7 +14,7 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-2 bg-light" id="navbar">
+      <div class="col-md-2 bg-light" id="navbar">
         <nav class="nav flex-column">
           <a class="nav-link navitem" href="admin.html">Home</a>
           <a class="nav-link navitem" href="addadmin.html">Add Admin</a>
@@ -25,9 +25,8 @@
           <a class="nav-link navitem" href="logout.php">Logout</a>
         </nav>
       </div>
-      <div class="col-sm-10">
-        <!-- Button trigger modal -->
-        
+      <div class="col-md-10" id="content">
+
         <table class="table table-hover">
           <thead>
             <tr>
@@ -40,24 +39,8 @@
           <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal">Ban</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal">Ban</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
+              <td>Dark</td>
+              <td>dasdasda</td>
               <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal">Ban</button>
               </td>
@@ -77,8 +60,11 @@
                 Do you really want to ban this user?
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Ban</button>
+                <form action="banuser.php">
+                  <input type="hidden" value="">
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" type="submit">Ban</button>
+                </form>
               </div>
             </div>
           </div>

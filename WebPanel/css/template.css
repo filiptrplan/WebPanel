@@ -1,20 +1,27 @@
 #navbar {
+  padding: 0px;
+}
+
+#content {
   height: 100vh;
-  padding: 0px; }
+}
 
 .navitem {
-  color: black !important; }
+  color: black !important;
+}
 
 .navitem:hover {
-  background-color: #efefef; }
+  background-color: #efefef;
+}
 
 .navitem:active {
-  background-color: #dcdcdc; }
+  background-color: #dcdcdc;
+}
 
 .selected {
-  background-color: #dcdcdc; }
+  background-color: #dcdcdc;
+}
 
 .selected:hover {
-  background-color: #dcdcdc; }
-
-/*# sourceMappingURL=template.css.map */
+  background-color: #dcdcdc;
+}
