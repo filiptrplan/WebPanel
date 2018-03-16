@@ -12,7 +12,6 @@ class User
   
     public function __construct($data, $type)
     {
-        echo 'started';
         if ($type === 'id') {
             $rows = DB::select('SELECT * FROM users WHERE id=:id', array(':id' => $data));
             $result = $rows[0];
@@ -42,5 +41,25 @@ class User
         }else{
             return false;
         }
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+    public function getUsername(){
+        return $this->username;
+    }
+    public function getHWID(){
+        return $this->hwid;
+    }
+    public function isBanned(){
+        if($this->ban == '0'){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public function getType(){
+        return $this->type;
     }
 }
