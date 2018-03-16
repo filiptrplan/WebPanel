@@ -3,27 +3,36 @@ require_once 'inc.php';
 
 class DB
 {
-    private $conn;
-    private $success;
-    public function __construct()
+    private static $m_pInstance;
+    private static $conn;
+    private static $success;
+
+    public static function connect()
     {
         try {
             $config = parse_ini_file("../config/db.ini");
-            $this->conn = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'], $config['username'], $config['password']);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->success = true;
+            self::$conn = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'], $config['username'], $config['password']);
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$success = true;
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
-            $this->success = false;
+            self::$success = false;
         }
     }
 
+    public static function getInstance()
+    {
+        if (!self::$m_pInstance) {
+            self::$m_pInstance = new DB();
+        }
+        return self::$m_pInstance;
+    }
     /*
     Checks if the DB is connected
     */
-    public function isConnected()
+    public static function isConnected()
     {
-        return $this->success;
+        return self::$success;
     }
     
     /*
@@ -31,11 +40,11 @@ class DB
     EXAMPLE Usage:
     select('SELECT * FROM myTable WHERE name = :name'), array(':name' => $name));
     */
-    public function select($query, $params)
+    public static function select($query, $params)
     {
         try {
             $rows = array();
-            $stmt = $this->conn->prepare($query);
+            $stmt = self::$conn->prepare($query);
             $result = $stmt->execute($params);
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 array_push($rows, $row);
@@ -51,10 +60,10 @@ class DB
     EXAMPLE Usage:
     query('DELETE FROM myTable WHERE name = :name'), array(':name' => $name));
     */
-    public function query($query, $params)
+    public static function query($query, $params)
     {
         try {
-            $stmt = $this->conn->prepare($query);
+            $stmt = self::$conn->prepare($query);
             $result = $stmt->execute($params);
             return $stmt->rowCount();
         } catch (PDOException $e) {
@@ -62,4 +71,14 @@ class DB
         }
     }
 
+    
+    public function __sleep()
+    {
+        return array('conn');
+    }
+
+    public function __wakeup()
+    {
+        self::connect();
+    }
 }

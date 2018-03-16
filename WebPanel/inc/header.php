@@ -1,7 +1,7 @@
 <?php
 require_once 'inc.php';
-if(session_id() == '' || !isset($_SESSION)) {
+DB::connect();
+if (session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
-$db = new DB();
-?>
+$user = new User(1, 'id');
