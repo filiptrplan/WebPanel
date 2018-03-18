@@ -2,10 +2,8 @@
 <html lang="en">
 <?php
     require_once 'inc/inc.php';
-    $users = Manager::getUsers();
     $previousLocation = $_SESSION['previous-location'];
     $previousAction = $_SESSION['action'];
-    $previousStatus = $_SESSION['status'];
     $_SESSION['action'] = 'adduser';
     $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
@@ -66,19 +64,21 @@
               Types are custom, but to make an admin account type in 100. Types must be integers!
             </div>
             <?php
-              if ($status == 'success') {
-                  echo '            <div class="alert alert-success mt-2" role="alert">
+            if ($previousAction == 'adduser') {
+                if ($status == 'success') {
+                    echo '            <div class="alert alert-success mt-2" role="alert">
               Successfully added an user!
             </div>';
-              } elseif ($status == 'taken') {
-                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                } elseif ($status == 'taken') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
               The username is taken!
             </div>';
-              } elseif ($status == 'error') {
-                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                } elseif ($status == 'error') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
               Unknown error!
             </div>';
-              }
+                }
+            }
             ?>
           </form>
         </div>

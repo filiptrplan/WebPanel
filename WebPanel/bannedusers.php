@@ -6,6 +6,10 @@
     require_once 'inc/inc.php';
     $users = Manager::getUsers();
     $previousLocation = $_SESSION['previous-location'];
+    $previousAction = $_SESSION['action'];
+    $status = $_SESSION['status'];
+    $_SESSION['action'] = 'none';
+    $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
   ?>
   <meta charset="UTF-8">
@@ -31,6 +35,30 @@
         </nav>
       </div>
       <div class="col-md-10" id="content">
+        <?php
+              if ($previousAction == 'pardonuser') {
+                  if ($status == 'success') {
+                      echo '            <div class="alert alert-success mt-2" role="alert">
+              Successfully pardoned the user!
+            </div>';
+                  } elseif ($status == 'error') {
+                      echo '            <div class="alert alert-danger mt-2" role="alert">
+              Unknown error!
+            </div>';
+                  }
+              } elseif ($previousAction == 'removeuser') {
+                  if ($status == 'success') {
+                      echo '            <div class="alert alert-success mt-2" role="alert">
+              Successfully removed the user!
+            </div>';
+                  } elseif ($status == 'error') {
+                      echo '            <div class="alert alert-danger mt-2" role="alert">
+              Unknown error!
+            </div>';
+                  }
+              }
+            
+        ?>
         <!-- USER LIST -->
         <table class="table table-hover">
           <thead>
