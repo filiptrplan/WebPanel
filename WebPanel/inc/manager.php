@@ -10,6 +10,10 @@ class Manager
     }
     public static function addUser($username, $password, $type)
     {
+        $rows = DB::select('SELECT * FROM users WHERE username=:username', array(':username' => $username));
+        if (count($rows) > 0) {
+            return 2;
+        }
         $options = [
             'cost' => 14,
         ];

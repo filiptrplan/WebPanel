@@ -11,8 +11,16 @@
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
 
     if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
-        Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
+        $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
+        if ($result == 1) {
+            $_SESSION['status'] = 'success';
+        } elseif ($result == 2) {
+            $_SESSION['status'] = 'taken';
+        } else {
+            $_SESSION['status'] = 'error';
+        }
     }
+    $status = $_SESSION['status'];
   ?>
 
   <head>
@@ -54,9 +62,24 @@
               <input type="text" class="form-control" name="type" placeholder="Type">
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
-            <div class="alert alert-info mt-2" role="alert">
+            <div class="alert alert-primary mt-2" role="alert">
               Types are custom, but to make an admin account type in 100. Types must be integers!
             </div>
+            <?php
+              if ($status == 'success') {
+                  echo '            <div class="alert alert-success mt-2" role="alert">
+              Successfully added an user!
+            </div>';
+              } elseif ($status == 'taken') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+              The username is taken!
+            </div>';
+              } elseif ($status == 'error') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+              Unknown error!
+            </div>';
+              }
+            ?>
           </form>
         </div>
       </div>
