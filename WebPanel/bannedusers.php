@@ -38,19 +38,20 @@
               <th scope="col">#</th>
               <th scope="col">Username</th>
               <th scope="col">HWID</th>
-              <th scope="col">Ban</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             <?php
               foreach ($users as $user) {
-                  if ($user['ban'] == 0) {
+                  if ($user['ban'] == 1) {
                       echo '<tr>
                       <th scope="row">' . $user['id'] . '</th>
                       <td>' . $user['username'] . '</td>
                       <td>' . $user['hwid'] . '</td>
                       <td>
-                      <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
+                      <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
+                      <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
                       </td>
                     </tr>';
                   }
@@ -58,7 +59,7 @@
             ?>
           </tbody>
         </table>
-        <!-- BAN MODAL -->
+        <!-- PARDON MODAL -->
         <div class="modal fade" id="banmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -69,13 +70,36 @@
                 </button>
               </div>
               <div class="modal-body">
-                Do you really want to ban this user?
+                Do you really want to pardon this user?
               </div>
               <div class="modal-footer">
-                <form action="banuser.php" method="post">
+                <form action="pardonuser.php" method="post">
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                  <input class="btn btn-danger" type="submit" value="Ban">
+                  <input class="btn btn-info" type="submit" value="Pardon">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- REMOVE MODAL -->
+        <div class="modal fade" id="removemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Do you really want to remove this user?
+              </div>
+              <div class="modal-footer">
+                <form action="removeuser.php" method="post">
+                  <input class="id-input" type="hidden" value="" name="id">
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                  <input class="btn btn-danger" type="submit" value="Remove">
                 </form>
               </div>
             </div>
