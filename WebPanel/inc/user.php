@@ -9,8 +9,22 @@ class User
     private $hwid;
     private $ban;
     private $type;
+
+    private $data;
+    private $datatype;
   
     public function __construct($data, $type)
+    {
+        $this->data = $data;
+        $this->datatype = $type;
+        $this->setUser($data, $type);
+    }
+    public function refreshUser()
+    {
+        $this->setUser($this->data, $this->datatype);
+    }
+
+    private function setUser($data, $type)
     {
         if ($type === 'id') {
             $rows = DB::select('SELECT * FROM users WHERE id=:id', array(':id' => $data));
@@ -35,31 +49,37 @@ class User
         }
     }
 
-    public function isAdmin(){
-        if($this->type === '100'){
+    public function isAdmin()
+    {
+        if ($this->type === '100') {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->username;
     }
-    public function getHWID(){
+    public function getHWID()
+    {
         return $this->hwid;
     }
-    public function isBanned(){
-        if($this->ban == '0'){
+    public function isBanned()
+    {
+        if ($this->ban == '0') {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-    public function getType(){
+    public function getType()
+    {
         return $this->type;
     }
 }

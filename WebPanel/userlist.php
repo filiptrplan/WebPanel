@@ -5,6 +5,8 @@
   <?php
     require_once 'inc/inc.php';
     $users = Manager::getUsers();
+    $previousLocation = $_SESSION['previous-location'];
+    $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
   ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,10 +70,10 @@
                 Do you really want to ban this user?
               </div>
               <div class="modal-footer">
-                <form action="banuser.php">
+                <form action="banuser.php" method="post">
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-danger" type="submit">Ban</button>
+                  <input class="btn btn-danger" type="submit" value="Ban">
                 </form>
               </div>
             </div>
