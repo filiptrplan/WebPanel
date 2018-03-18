@@ -13,6 +13,7 @@ class DB
             $config = parse_ini_file("../config/db.ini");
             self::$conn = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'], $config['username'], $config['password']);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             self::$success = true;
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
