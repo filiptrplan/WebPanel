@@ -6,24 +6,33 @@ class Manager
     public static function banUser($user)
     {
         $id = $user->getId();
-        DB::query('UPDATE users SET ban=1 WHERE id=:id', array(':id' => $id));
+        return DB::query('UPDATE users SET ban=1 WHERE id=:id', array(':id' => $id));
     }
     public static function addUser($username, $password, $type)
     {
-        DB::query(
+        $rows = DB::select('SELECT * FROM users WHERE username=:username', array(':username' => $username));
+        if (count($rows) > 0) {
+            return 2;
+        }
+        $options = [
+            'cost' => 14,
+        ];
+        $hashed = password_hash($password, PASSWORD_BCRYPT, $options);
+
+        return DB::query(
             'INSERT INTO users (username, password, type) VALUES (:username, :password, :type)',
-         array(':username' => $username, ':password' => $password, ':type' => $type)
+         array(':username' => $username, ':password' => $hashed, ':type' => $type)
         );
     }
     public static function removeUser($user)
     {
         $id = $user->getId();
-        DB::query('DELETE FROM users WHERE id=:id', array(':id' => $id));
+        return DB::query('DELETE FROM users WHERE id=:id', array(':id' => $id));
     }
     public static function pardonUser($user)
     {
         $id = $user->getId();
-        DB::query('UPDATE users SET ban=0 WHERE id=:id', array(':id' => $id));
+        return DB::query('UPDATE users SET ban=0 WHERE id=:id', array(':id' => $id));
     }
     public static function getUsers()
     {
