@@ -47,7 +47,7 @@
                       <td>' . $user['username'] . '</td>
                       <td>' . $user['hwid'] . '</td>
                       <td>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal" data-id="">Ban</button>
+                      <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
                       </td>
                     </tr>';
               }
@@ -69,7 +69,7 @@
               </div>
               <div class="modal-footer">
                 <form action="banuser.php">
-                  <input type="hidden" value="" name="id">
+                  <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-danger" type="submit">Ban</button>
                 </form>
@@ -81,6 +81,7 @@
     </div>
   </div>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/userlist.js"></script>
 </body>
 
 </html>
