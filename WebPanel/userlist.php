@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+  <?php
+    require_once 'inc/inc.php';
+    $users = Manager::getUsers();
+  ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,6 +17,7 @@
 
 <body>
   <div class="container-fluid">
+    <!-- NAVIGATION -->
     <div class="row">
       <div class="col-md-2 bg-light" id="navbar">
         <nav class="nav flex-column">
@@ -24,7 +29,7 @@
         </nav>
       </div>
       <div class="col-md-10" id="content">
-
+        <!-- USER LIST -->
         <table class="table table-hover">
           <thead>
             <tr>
@@ -35,16 +40,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Dark</td>
-              <td>dasdasda</td>
-              <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal">Ban</button>
-              </td>
-            </tr>
+            <?php
+              foreach ($users as $user) {
+                  echo '<tr>
+                      <th scope="row">' . $user['id'] . '</th>
+                      <td>' . $user['username'] . '</td>
+                      <td>' . $user['hwid'] . '</td>
+                      <td>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#banmodal" data-id="">Ban</button>
+                      </td>
+                    </tr>';
+              }
+            ?>
           </tbody>
         </table>
+        <!-- BAN MODAL -->
         <div class="modal fade" id="banmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -59,7 +69,7 @@
               </div>
               <div class="modal-footer">
                 <form action="banuser.php">
-                  <input type="hidden" value="">
+                  <input type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-danger" type="submit">Ban</button>
                 </form>

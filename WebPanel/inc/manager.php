@@ -1,4 +1,6 @@
 <?php
+require_once 'inc.php';
+
 class Manager
 {
     public static function banUser($user)
@@ -22,5 +24,10 @@ class Manager
     {
         $id = $user->getId();
         DB::query('UPDATE users SET ban=0 WHERE id=:id', array(':id' => $id));
+    }
+    public static function getUsers()
+    {
+        $rows = DB::select('SELECT * FROM users', array());
+        return $rows;
     }
 }
