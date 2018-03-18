@@ -2,7 +2,6 @@
 <html lang="en">
 <?php
     require_once 'inc/inc.php';
-    $users = Manager::getUsers();
     $previousLocation = $_SESSION['previous-location'];
     $previousAction = $_SESSION['action'];
     $previousStatus = $_SESSION['status'];
