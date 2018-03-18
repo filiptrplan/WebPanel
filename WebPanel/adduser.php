@@ -9,6 +9,10 @@
     $_SESSION['action'] = 'adduser';
     $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
+        Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
+    }
   ?>
 
   <head>
@@ -36,7 +40,7 @@
           </nav>
         </div>
         <div class="col-sm-10">
-          <form class="mt-2" action="login.php" method="POST">
+          <form class="mt-2" action="adduser.php" method="POST">
             <div class="form-group">
               <label for="usernameInput">Username</label>
               <input type="username" class="form-control" name="username" id="usernameInput" placeholder="Enter Username">
