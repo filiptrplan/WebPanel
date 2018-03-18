@@ -7,7 +7,7 @@
     $users = Manager::getUsers();
     $previousLocation = $_SESSION['previous-location'];
     $previousAction = $_SESSION['action'];
-    $previousStatus = $_SESSION['status'];
+    $status = $_SESSION['status'];
     $_SESSION['action'] = 'none';
     $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
@@ -36,6 +36,19 @@
         </nav>
       </div>
       <div class="col-md-10" id="content">
+        <?php
+            if ($previousAction == 'banuser') {
+                if ($status == 'success') {
+                    echo '            <div class="alert alert-success mt-2" role="alert">
+              Successfully banned the user!
+            </div>';
+                } elseif ($status == 'error') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
+              Unknown error!
+            </div>';
+                }
+            }
+        ?>
         <!-- USER LIST -->
         <table class="table table-hover">
           <thead>
