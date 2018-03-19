@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-  require_once 'inc/inc.php';
+require_once 'inc/inc.php';
 
-  if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-    header('Location: login.php');
-    exit;
+if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
+  header('Location: login.php');
+  exit;
+}
+
+$previousLocation = $_SESSION['previous-location'];
+$previousAction = $_SESSION['action'];
+$_SESSION['action'] = 'adduser';
+$_SESSION['status'] = 'none';
+$_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+
+if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
+  $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
+  if ($result == 1) {
+    $_SESSION['status'] = 'success';
+  } elseif ($result == 2) {
+    $_SESSION['status'] = 'taken';
+  } else {
+    $_SESSION['status'] = 'error';
   }
-
-  $previousLocation = $_SESSION['previous-location'];
-  $previousAction = $_SESSION['action'];
-  $_SESSION['action'] = 'adduser';
-  $_SESSION['status'] = 'none';
-  $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-
-  if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
-    $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
-    if ($result == 1) {
-      $_SESSION['status'] = 'success';
-    } elseif ($result == 2) {
-      $_SESSION['status'] = 'taken';
-    } else {
-      $_SESSION['status'] = 'error';
-    }
-  }
-  $status = $_SESSION['status'];
-  ?>
+}
+$status = $_SESSION['status'];
+?>
 
   <head>
     <meta charset="UTF-8">

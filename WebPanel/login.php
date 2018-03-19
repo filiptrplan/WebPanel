@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <?php
-    require_once 'inc/inc.php';
-    $previousLocation = $_SESSION['previous-location'];
-    $previousAction = $_SESSION['action'];
-    $_SESSION['action'] = 'login';
-    $_SESSION['status'] = 'none';
-    $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-        $result = Auth::login($_POST['username'], $_POST['password']);
-        if ($result == 'success') {
-            $_SESSION['user'] = new User($_POST['username'], 'username');
-            if (!$_SESSION['user']->isBanned()) {
-                if ($_SESSION['user']->isAdmin()) {
-                    header('Location: userlist.php');
-                }
-                exit;
-            } else {
-                unset($_SESSION['user']);
-                $result = 'banned';
-            }
-        }
-        $_SESSION['status'] = $result;
-    }
-    $status = $_SESSION['status'];
+<?php
+  require_once 'inc/inc.php';
+  $previousLocation = $_SESSION['previous-location'];
+  $previousAction = $_SESSION['action'];
+  $_SESSION['action'] = 'login';
+  $_SESSION['status'] = 'none';
+  $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+  if (isset($_POST['username']) && isset($_POST['password'])) {
+      $result = Auth::login($_POST['username'], $_POST['password']);
+      if ($result == 'success') {
+          $_SESSION['user'] = new User($_POST['username'], 'username');
+          if (!$_SESSION['user']->isBanned()) {
+              if ($_SESSION['user']->isAdmin()) {
+                  header('Location: userlist.php');
+              }
+              exit;
+          } else {
+              unset($_SESSION['user']);
+              $result = 'banned';
+          }
+      }
+      $_SESSION['status'] = $result;
+  }
+  $status = $_SESSION['status'];
 
-  ?>
+?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
