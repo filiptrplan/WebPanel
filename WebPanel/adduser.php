@@ -67,44 +67,44 @@ $status = $_SESSION['status'];
               Types are custom, but to make an admin account type in 100. Types must be integers!
             </div>
             <?php
-  if ($previousAction == 'adduser') {
-    if ($status == 'success') {
-      echo '            <div class="alert alert-success mt-2" role="alert">
-              Successfully added an user!
-            </div>';
-    } elseif ($status == 'taken') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              The username is taken!
-            </div>';
-    } elseif ($status == 'error') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              Unknown error!
-            </div>';
-    }
-  }
-  ?>
+              if ($previousAction == 'adduser') {
+                if ($status == 'success') {
+                  echo '            <div class="alert alert-success mt-2" role="alert">
+                          Successfully added an user!
+                        </div>';
+                } elseif ($status == 'taken') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                          The username is taken!
+                        </div>';
+                } elseif ($status == 'error') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                          Unknown error!
+                        </div>';
+                }
+              }
+              ?>
           </form>
-                  <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Do you really want to logout?
-              </div>
-              <div class="modal-footer">
-                <form action="logout.php" method="post">
-                  <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                  <input class="btn btn-danger" type="submit" value="Logout">
-                </form>
+          <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Do you really want to logout?
+                </div>
+                <div class="modal-footer">
+                  <form action="logout.php" method="post">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <input class="btn btn-danger" type="submit" value="Logout">
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

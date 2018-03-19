@@ -43,29 +43,29 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
         </div>
         <div class="col-md-10" id="content">
           <?php
-  if ($previousAction == 'pardonuser') {
-    if ($status == 'success') {
-      echo '            <div class="alert alert-success mt-2" role="alert">
-              Successfully pardoned the user!
-            </div>';
-    } elseif ($status == 'error') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              Unknown error!
-            </div>';
-    }
-  } elseif ($previousAction == 'removeuser') {
-    if ($status == 'success') {
-      echo '            <div class="alert alert-success mt-2" role="alert">
-              Successfully removed the user!
-            </div>';
-    } elseif ($status == 'error') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              Unknown error!
-            </div>';
-    }
-  }
-  
-  ?>
+            if ($previousAction == 'pardonuser') {
+              if ($status == 'success') {
+                echo '            <div class="alert alert-success mt-2" role="alert">
+                              Successfully pardoned the user!
+                            </div>';
+              } elseif ($status == 'error') {
+                echo '            <div class="alert alert-danger mt-2" role="alert">
+                              Unknown error!
+                            </div>';
+              }
+            } elseif ($previousAction == 'removeuser') {
+              if ($status == 'success') {
+                echo '            <div class="alert alert-success mt-2" role="alert">
+                              Successfully removed the user!
+                            </div>';
+              } elseif ($status == 'error') {
+                echo '            <div class="alert alert-danger mt-2" role="alert">
+                              Unknown error!
+                            </div>';
+              }
+            }
+            
+            ?>
             <!-- USER LIST -->
             <table class="table table-hover">
               <thead>
@@ -78,20 +78,20 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
               </thead>
               <tbody>
                 <?php
-  foreach ($users as $user) {
-    if ($user['ban'] == 1) {
-      echo '<tr>
-                      <th scope="row">' . $user['id'] . '</th>
-                      <td>' . $user['username'] . '</td>
-                      <td>' . $user['hwid'] . '</td>
-                      <td>
-                      <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
-                      <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
-                      </td>
-                    </tr>';
-    }
-  }
-  ?>
+          foreach ($users as $user) {
+            if ($user['ban'] == 1) {
+              echo '<tr>
+                                      <th scope="row">' . $user['id'] . '</th>
+                                      <td>' . $user['username'] . '</td>
+                                      <td>' . $user['hwid'] . '</td>
+                                      <td>
+                                      <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
+                                      <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
+                                      </td>
+                                    </tr>';
+            }
+          }
+        ?>
               </tbody>
             </table>
             <!-- PARDON MODAL -->
