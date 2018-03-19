@@ -38,7 +38,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
             <a class="nav-link navitem" href="adduser.php">Add User</a>
             <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
             <a class="nav-link navitem selected" href="#">User List</a>
-            <a class="nav-link navitem" href="logout.php">Logout</a>
+            <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
         </nav>
       </div>
       <div class="col-md-10" id="content">
@@ -100,6 +100,28 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <input class="btn btn-danger" type="submit" value="Ban">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Do you really want to logout?
+              </div>
+              <div class="modal-footer">
+                <form action="logout.php" method="post">
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                  <input class="btn btn-danger" type="submit" value="Logout">
                 </form>
               </div>
             </div>
