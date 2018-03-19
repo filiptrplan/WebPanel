@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
   <?php
     require_once 'inc/inc.php';
     $users = Manager::getUsers();
@@ -12,6 +10,8 @@
     $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
   ?>
+<head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
