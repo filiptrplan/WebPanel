@@ -49,7 +49,7 @@ $status = $_SESSION['status'];
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
           </nav>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-10" id="content">
           <!-- FORM FOR ADDING USERS -->
           <form class="mt-2" action="adduser.php" method="POST">
             <div class="form-group">
