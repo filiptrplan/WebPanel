@@ -42,12 +42,9 @@ $status = $_SESSION['status'];
       <div class="row">
         <div class="col-sm-2 bg-light" id="navbar">
           <nav class="nav flex-column">
-            <a class="nav-link navitem" href="admin.html">Home</a>
-            <a class="nav-link navitem" href="addadmin.html">Add Admin</a>
             <a class="nav-link navitem selected" href="#">Add User</a>
-            <a class="nav-link navitem" href="banuser.html">Ban User</a>
-            <a class="nav-link navitem" href="removeuser.html">Remove User</a>
-            <a class="nav-link navitem" href="userlist.html">User List</a>
+            <a class="nav-link navitem selected" href="bannedusers.php">Banned Users</a>
+            <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="logout.php">Logout</a>
           </nav>
         </div>

@@ -34,11 +34,10 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
     <div class="row">
       <div class="col-md-2 bg-light" id="navbar">
         <nav class="nav flex-column">
-          <a class="nav-link navitem" href="admin.html">Home</a>
-          <a class="nav-link navitem" href="adduser.html">Add User</a>
-          <a class="nav-link navitem" href="removeuser.html">Remove User</a>
-          <a class="nav-link navitem selected" href="#">User List</a>
-          <a class="nav-link navitem" href="logout.php">Logout</a>
+            <a class="nav-link navitem selected" href="#">Add User</a>
+            <a class="nav-link navitem selected" href="bannedusers.php">Banned Users</a>
+            <a class="nav-link navitem" href="userlist.php">User List</a>
+            <a class="nav-link navitem" href="logout.php">Logout</a>
         </nav>
       </div>
       <div class="col-md-10" id="content">
