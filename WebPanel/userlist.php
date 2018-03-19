@@ -26,7 +26,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/template.css">
   <script src="js/jquery-3.3.1.min.js"></script>
-  <title>Add admin</title>
+  <title>User List</title>
 </head>
 
 <body>
