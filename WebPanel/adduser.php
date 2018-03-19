@@ -34,7 +34,7 @@ $status = $_SESSION['status'];
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/template.css">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <title>Add admin</title>
+    <title>Add user</title>
   </head>
 
   <body>
@@ -42,13 +42,10 @@ $status = $_SESSION['status'];
       <div class="row">
         <div class="col-sm-2 bg-light" id="navbar">
           <nav class="nav flex-column">
-            <a class="nav-link navitem" href="admin.html">Home</a>
-            <a class="nav-link navitem" href="addadmin.html">Add Admin</a>
             <a class="nav-link navitem selected" href="#">Add User</a>
-            <a class="nav-link navitem" href="banuser.html">Ban User</a>
-            <a class="nav-link navitem" href="removeuser.html">Remove User</a>
-            <a class="nav-link navitem" href="userlist.html">User List</a>
-            <a class="nav-link navitem" href="logout.php">Logout</a>
+            <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
+            <a class="nav-link navitem" href="userlist.php">User List</a>
+            <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
           </nav>
         </div>
         <div class="col-sm-10">
@@ -70,23 +67,44 @@ $status = $_SESSION['status'];
               Types are custom, but to make an admin account type in 100. Types must be integers!
             </div>
             <?php
-  if ($previousAction == 'adduser') {
-    if ($status == 'success') {
-      echo '            <div class="alert alert-success mt-2" role="alert">
-              Successfully added an user!
-            </div>';
-    } elseif ($status == 'taken') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              The username is taken!
-            </div>';
-    } elseif ($status == 'error') {
-      echo '            <div class="alert alert-danger mt-2" role="alert">
-              Unknown error!
-            </div>';
-    }
-  }
-  ?>
+              if ($previousAction == 'adduser') {
+                if ($status == 'success') {
+                  echo '            <div class="alert alert-success mt-2" role="alert">
+                          Successfully added an user!
+                        </div>';
+                } elseif ($status == 'taken') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                          The username is taken!
+                        </div>';
+                } elseif ($status == 'error') {
+                  echo '            <div class="alert alert-danger mt-2" role="alert">
+                          Unknown error!
+                        </div>';
+                }
+              }
+              ?>
           </form>
+          <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Do you really want to logout?
+                </div>
+                <div class="modal-footer">
+                  <form action="logout.php" method="post">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <input class="btn btn-danger" type="submit" value="Logout">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
