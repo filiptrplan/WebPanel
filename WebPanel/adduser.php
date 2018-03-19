@@ -16,9 +16,9 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
 
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
   $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
-  if ($result == 1) {
+  if ($result == 'success') {
     $_SESSION['status'] = 'success';
-  } elseif ($result == 2) {
+  } elseif ($result == 'taken') {
     $_SESSION['status'] = 'taken';
   } else {
     $_SESSION['status'] = 'error';
@@ -40,6 +40,7 @@ $status = $_SESSION['status'];
   <body>
     <div class="container-fluid">
       <div class="row">
+        <!-- NAVIGATION -->
         <div class="col-sm-2 bg-light" id="navbar">
           <nav class="nav flex-column">
             <a class="nav-link navitem selected" href="#">Add User</a>
@@ -49,6 +50,7 @@ $status = $_SESSION['status'];
           </nav>
         </div>
         <div class="col-sm-10">
+          <!-- FORM FOR ADDING USERS -->
           <form class="mt-2" action="adduser.php" method="POST">
             <div class="form-group">
               <label for="usernameInput">Username</label>
@@ -66,24 +68,20 @@ $status = $_SESSION['status'];
             <div class="alert alert-primary mt-2" role="alert">
               Types are custom, but to make an admin account type in 100. Types must be integers!
             </div>
+            <!-- STATUS MESSAGES -->
             <?php
-              if ($previousAction == 'adduser') {
-                if ($status == 'success') {
-                  echo '            <div class="alert alert-success mt-2" role="alert">
-                          Successfully added an user!
-                        </div>';
-                } elseif ($status == 'taken') {
-                  echo '            <div class="alert alert-danger mt-2" role="alert">
-                          The username is taken!
-                        </div>';
-                } elseif ($status == 'error') {
-                  echo '            <div class="alert alert-danger mt-2" role="alert">
-                          Unknown error!
-                        </div>';
-                }
+            if ($previousAction == 'adduser') {
+              if ($status == 'success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully added an user!</div>';
+              } elseif ($status == 'taken') {
+                echo '<div class="alert alert-danger mt-2" role="alert">The username is taken!</div>';
+              } elseif ($status == 'error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
-              ?>
+            }
+            ?>
           </form>
+          <!-- LOGOUT MODAL -->
           <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
