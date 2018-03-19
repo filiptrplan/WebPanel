@@ -35,25 +35,25 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
     <div class="row">
       <div class="col-md-2 bg-light" id="navbar">
         <nav class="nav flex-column">
-            <a class="nav-link navitem selected" href="#">Add User</a>
-            <a class="nav-link navitem selected" href="bannedusers.php">Banned Users</a>
-            <a class="nav-link navitem" href="userlist.php">User List</a>
+            <a class="nav-link navitem" href="adduser.php">Add User</a>
+            <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
+            <a class="nav-link navitem selected" href="#">User List</a>
             <a class="nav-link navitem" href="logout.php">Logout</a>
         </nav>
       </div>
       <div class="col-md-10" id="content">
         <?php
-    if ($previousAction == 'banuser') {
-      if ($status == 'success') {
-        echo '            <div class="alert alert-success mt-2" role="alert">
+  if ($previousAction == 'banuser') {
+    if ($status == 'success') {
+      echo '            <div class="alert alert-success mt-2" role="alert">
               Successfully banned the user!
             </div>';
-      } elseif ($status == 'error') {
-        echo '            <div class="alert alert-danger mt-2" role="alert">
+    } elseif ($status == 'error') {
+      echo '            <div class="alert alert-danger mt-2" role="alert">
               Unknown error!
             </div>';
-      }
     }
+  }
   ?>
         <!-- USER LIST -->
         <table class="table table-hover">
@@ -67,9 +67,9 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
           </thead>
           <tbody>
             <?php
-    foreach ($users as $user) {
-      if ($user['ban'] == 0) {
-        echo '<tr>
+  foreach ($users as $user) {
+    if ($user['ban'] == 0) {
+      echo '<tr>
                       <th scope="row">' . $user['id'] . '</th>
                       <td>' . $user['username'] . '</td>
                       <td>' . $user['hwid'] . '</td>
@@ -77,9 +77,9 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                       <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
                       </td>
                     </tr>';
-      }
     }
-    ?>
+  }
+  ?>
           </tbody>
         </table>
         <!-- BAN MODAL -->

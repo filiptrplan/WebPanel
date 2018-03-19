@@ -34,8 +34,8 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
     <div class="row">
       <div class="col-md-2 bg-light" id="navbar">
         <nav class="nav flex-column">
-            <a class="nav-link navitem selected" href="#">Add User</a>
-            <a class="nav-link navitem selected" href="bannedusers.php">Banned Users</a>
+            <a class="nav-link navitem" href="adduser.php">Add User</a>
+            <a class="nav-link navitem selected" href="#">Banned Users</a>
             <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="logout.php">Logout</a>
         </nav>
