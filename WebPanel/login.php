@@ -4,14 +4,27 @@
     require_once 'inc/inc.php';
     $previousLocation = $_SESSION['previous-location'];
     $previousAction = $_SESSION['action'];
-    $status = $_SESSION['status'];
     $_SESSION['action'] = 'login';
     $_SESSION['status'] = 'none';
     $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $result = Auth::login($_POST['username'], $_POST['password']);
-        echo $result;
+        if ($result == 'success') {
+            $_SESSION['user'] = new User($_POST['username'], 'username');
+            if (!$_SESSION['user']->isBanned()) {
+                if ($_SESSION['user']->isAdmin()) {
+                    header('Location: userlist.php');
+                }
+                exit;
+            } else {
+                unset($_SESSION['user']);
+                $result = 'banned';
+            }
+        }
+        $_SESSION['status'] = $result;
     }
+    $status = $_SESSION['status'];
+
   ?>
 <head>
   <meta charset="UTF-8">
@@ -39,6 +52,28 @@
           </div>
           <input type="submit" value="Login" class="btn btn-primary">
         </form>
+         <?php
+            if ($previousAction == 'login') {
+                if ($status == 'success') {
+                    echo '            <div class="alert alert-success mt-2" role="alert">
+              Logged in!
+            </div>';
+                } elseif ($status == 'invalid') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
+              Invalid password!
+            </div>';
+                } elseif ($status == 'noexist') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
+              The user doesn\'t exist!
+            </div>';
+                }elseif ($status == 'banned') {
+                    echo '            <div class="alert alert-danger mt-2" role="alert">
+              The user is banned!
+            </div>';
+                }
+            }
+            
+        ?>
       </div>
       <div class="col-lg-4 align-self-end"></div>
     </div>
