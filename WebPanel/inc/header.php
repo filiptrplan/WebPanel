@@ -1,8 +1,12 @@
 <?php
 require_once 'inc.php';
 require_once 'user.php';
-
 DB::connect();
+
+/*
+Starts the session if not started
+Sets the session variables if not set
+*/
 if (session_id() == '' || !isset($_SESSION)) {
   session_start();
 }
