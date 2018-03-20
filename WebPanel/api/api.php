@@ -1,6 +1,10 @@
 <?php
 
 class Api{
+  /*
+  PLEASE REFER TO THE LAST STEP OF THE INSTALLATION OF THE README
+  IN THIS FOLDER!!!
+  */
   private static function encrypt($username, $hwid, $status)
   {
     $encrypted = $username . $hwid . $status;
