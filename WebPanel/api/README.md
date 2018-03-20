@@ -12,3 +12,5 @@ Hello! This is meant mostly for developers that want to authenticate the users o
 
 ### Usage
 The usage is very simple. Just make a POST or GET request to the `login.php` file in its respective folder. You should include an `username`, `password` and `hwid` parameters that contain the username, password and HWID respectively. The API will fire the `checkLogin` function which in return will fire the `encrypt` function that spits out the appropriate response.
+
+*Disclaimer*: The last 3 digits of the response are the user type. If the type is less than 3 digits, it is padded with zeros to fill it. If the user doesn't exist/he has the wrong HWID the last 3 digits are always `000`.
