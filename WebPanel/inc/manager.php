@@ -44,4 +44,9 @@ class Manager
     $rows = DB::select('SELECT * FROM users', array());
     return $rows;
   }
+  public static function setHWID($user, $hwid)
+  {
+    $id = $user->getId();
+    return DB::query('UPDATE users SET hwid=:hwid WHERE id=:id', array(':id' => $id, ':hwid' => $hwid));
+  }
 }
