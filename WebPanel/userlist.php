@@ -37,7 +37,8 @@ $status = $_GET['status'];
         <?php
           if ($status == 'banuser-success') {
             echo '<div class="alert alert-success mt-2" role="alert">Successfully banned the user!</div>';
-          } elseif ($status == 'banuser-error') {
+          } 
+          if ($status == 'banuser-error') {
             echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
           }
         ?>
