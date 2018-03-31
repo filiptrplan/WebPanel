@@ -42,6 +42,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
         </nav>
       </div>
       <div class="col-md-10" id="content">
+        <input type="text" class="form-control mt-3 mb-3" id="search-input" aria-label="Search" placeholder="Search">
         <?php
           if ($previousAction == 'banuser') {
             if ($status == 'success') {
@@ -67,7 +68,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                 if ($user['ban'] == 0) {
                   echo '<tr>
                           <th scope="row">' . $user['id'] . '</th>
-                          <td>' . $user['username'] . '</td>
+                          <td class="username-field">' . $user['username'] . '</td>
                           <td>' . $user['hwid'] . '</td>
                           <td>
                           <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
