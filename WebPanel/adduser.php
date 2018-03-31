@@ -6,21 +6,10 @@ require_once 'inc/checksession.php';
 
 $previousLocation = $_SESSION['previous-location'];
 $previousAction = $_SESSION['action'];
-$_SESSION['action'] = 'adduser';
-$_SESSION['status'] = 'none';
+$_SESSION['action'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-
-if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
-  $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
-  if ($result == 'success') {
-    $_SESSION['status'] = 'success';
-  } elseif ($result == 'taken') {
-    $_SESSION['status'] = 'taken';
-  } else {
-    $_SESSION['status'] = 'error';
-  }
-}
 $status = $_SESSION['status'];
+$_SESSION['status'] = 'none';
 ?>
 
   <head>
@@ -47,7 +36,7 @@ $status = $_SESSION['status'];
         </div>
         <div class="col-sm-10" id="content">
           <!-- FORM FOR ADDING USERS -->
-          <form class="mt-2" action="adduser.php" method="POST">
+          <form class="mt-2" action="adduserdata.php" method="POST">
             <div class="form-group">
               <label for="usernameInput">Username</label>
               <input type="username" class="form-control" name="username" id="usernameInput" placeholder="Enter Username">
