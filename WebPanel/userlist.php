@@ -59,7 +59,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
               <th scope="col">#</th>
               <th scope="col">Username</th>
               <th scope="col">HWID</th>
-              <th scope="col">Ban</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +72,10 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                           <td>' . $user['hwid'] . '</td>
                           <td>
                           <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
+                          <form action="edituser.php" method="get">
+                            <input type="hidden" value="' . $user['id'] . '" name="id">
+                            <input type="submit" class="btn btn-info editbtn" data-toggle="modal" value="Edit">
+                          </form>
                           </td>
                         </tr>';
                 }

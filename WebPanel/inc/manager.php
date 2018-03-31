@@ -49,4 +49,16 @@ class Manager
     $id = $user->getId();
     return DB::query('UPDATE users SET hwid=:hwid WHERE id=:id', array(':id' => $id, ':hwid' => $hwid));
   }
+  public static function setUsername($user, $username){
+    $id = $user->getId();
+    return DB::query('UPDATE users SET username=:username WHERE id=:id', array(':id' => $id, ':username' => $username));
+  }
+  public static function setPassword($user, $password){
+    $id = $user->getId();
+    $options = [
+      'cost' => 14,
+    ];
+    $hashed = password_hash($password, PASSWORD_BCRYPT, $options);
+    return DB::query('UPDATE users SET password=:password WHERE id=:id', array(':id' => $id, ':password' => $hashed));
+  }
 }
