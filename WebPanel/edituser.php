@@ -44,17 +44,18 @@ $user = new User($_GET['id'], 'id');
         </div>
         <div class="col-sm-10" id="content">
           <form action="edituserdata.php" method="post">
+          <input type="hidden" name="id" value="<?php echo $user->getId(); ?>">
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" placeholder="Username" value="<?php echo $user->getUsername(); ?>">
+              <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $user->getUsername(); ?>">
             </div>
             <div class="form-group">
               <label for="hwid">HWID</label>
-              <input type="text" class="form-control" id="hwid" placeholder="HWID" value="<?php echo $user->getHWID(); ?>">
+              <input type="text" class="form-control" name="hwid" id="hwid" placeholder="HWID" value="<?php echo $user->getHWID(); ?>">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="text" class="form-control" id="password" placeholder="Password">
+              <input type="text" class="form-control" name="password" id="password" placeholder="Password">
             </div>
             <div class="alert alert-primary mt-2">
               If you want to change the password of the user, type in the new password above. If you don't want to change it leave the field empty.
