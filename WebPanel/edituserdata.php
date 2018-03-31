@@ -16,12 +16,12 @@ if (isset($_POST['hwid'])){
     $_SESSION['status'] = 'error';
   }
 }
-if (isset($_POST['username'])){
+if (isset($_POST['username']) && !empty($_POST['username'])){
   if(Manager::setUsername($user, $_POST['username']) != 1){
     $_SESSION['status'] = 'error';
   }
 }
-if (isset($_POST['password'])){
+if (isset($_POST['password']) && !empty($_POST['password'])){
   if(Manager::setPassword($user, $_POST['password']) != 1){
     $_SESSION['status'] = 'error';
   }
