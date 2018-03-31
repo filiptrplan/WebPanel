@@ -2,12 +2,7 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
+require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
 $previousLocation = $_SESSION['previous-location'];
