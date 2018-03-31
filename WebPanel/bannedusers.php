@@ -95,7 +95,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to pardon this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="pardonuser.php" method="post">
+                    <form action="pardonuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-info" type="submit" value="Pardon">
@@ -118,7 +118,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to remove this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="removeuser.php" method="post">
+                    <form action="removeuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-danger" type="submit" value="Remove">

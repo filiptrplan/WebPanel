@@ -92,7 +92,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                 Do you really want to ban this user?
               </div>
               <div class="modal-footer">
-                <form action="banuser.php" method="post">
+                <form action="banuserdata.php" method="post">
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <input class="btn btn-danger" type="submit" value="Ban">
