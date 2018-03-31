@@ -15,7 +15,7 @@ class Manager
       return 'taken';
     }
     $options = [
-      'cost' => 14,
+      'cost' => Config::get('bcrypt_cost'),
     ];
     $hashed = password_hash($password, PASSWORD_BCRYPT, $options);
 
@@ -56,7 +56,7 @@ class Manager
   public static function setPassword($user, $password){
     $id = $user->getId();
     $options = [
-      'cost' => 14,
+      'cost' => Config::get('bcrypt_cost'),
     ];
     $hashed = password_hash($password, PASSWORD_BCRYPT, $options);
     return DB::query('UPDATE users SET password=:password WHERE id=:id', array(':id' => $id, ':password' => $hashed));

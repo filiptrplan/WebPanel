@@ -2,11 +2,7 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
+require_once 'inc/checksession.php';
 if(!isset($_GET['id'])){
   exit;
 }
@@ -62,6 +58,15 @@ $user = new User($_GET['id'], 'id');
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+          <!-- STATUS MESSAGES -->
+          <?php
+            if ($status == 'edituser-success') {
+              echo '<div class="alert alert-success mt-2" role="alert">Successfully edited the user!</div>';
+            } 
+            if ($status == 'edituser-error') {
+              echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
+            }
+          ?>
           <!-- LOGOUT MODAL -->
           <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

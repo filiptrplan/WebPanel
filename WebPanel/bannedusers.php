@@ -2,20 +2,11 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
+require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$status = $_SESSION['status'];
-$_SESSION['action'] = 'none';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+$status = $_GET['status'];
 ?>
 
   <head>
@@ -43,18 +34,17 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
         </div>
         <div class="col-md-10" id="content">
             <?php
-              if ($previousAction == 'pardonuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
-              } elseif ($previousAction == 'removeuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
+              if ($status == 'pardonuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
+              } 
+              if ($status == 'pardonuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
+              }
+              if ($status == 'removeuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
+              } 
+              if ($status == 'removeuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
             ?>
             <!-- USER LIST -->
@@ -99,7 +89,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to pardon this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="pardonuser.php" method="post">
+                    <form action="pardonuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-info" type="submit" value="Pardon">
@@ -122,7 +112,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to remove this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="removeuser.php" method="post">
+                    <form action="removeuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-danger" type="submit" value="Remove">

@@ -2,20 +2,11 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
+require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$status = $_SESSION['status'];
-$_SESSION['action'] = 'none';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+$status = $_GET['status'];
 
 ?>
 
@@ -44,12 +35,11 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
       <div class="col-md-10" id="content">
         <input type="text" class="form-control mt-3 mb-3" id="search-input" aria-label="Search" placeholder="Search">
         <?php
-          if ($previousAction == 'banuser') {
-            if ($status == 'success') {
-              echo '<div class="alert alert-success mt-2" role="alert">Successfully banned the user!</div>';
-            } elseif ($status == 'error') {
-              echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-            }
+          if ($status == 'banuser-success') {
+            echo '<div class="alert alert-success mt-2" role="alert">Successfully banned the user!</div>';
+          } 
+          if ($status == 'banuser-error') {
+            echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
           }
         ?>
         <!-- USER LIST -->
@@ -97,7 +87,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                 Do you really want to ban this user?
               </div>
               <div class="modal-footer">
-                <form action="banuser.php" method="post">
+                <form action="banuserdata.php" method="post">
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <input class="btn btn-danger" type="submit" value="Ban">

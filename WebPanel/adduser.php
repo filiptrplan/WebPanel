@@ -2,29 +2,10 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
+require_once 'inc/checksession.php';
 
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$_SESSION['action'] = 'adduser';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-
-if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
-  $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
-  if ($result == 'success') {
-    $_SESSION['status'] = 'success';
-  } elseif ($result == 'taken') {
-    $_SESSION['status'] = 'taken';
-  } else {
-    $_SESSION['status'] = 'error';
-  }
-}
-$status = $_SESSION['status'];
+$status = $_GET['status'];
 ?>
 
   <head>
@@ -51,7 +32,7 @@ $status = $_SESSION['status'];
         </div>
         <div class="col-sm-10" id="content">
           <!-- FORM FOR ADDING USERS -->
-          <form class="mt-2" action="adduser.php" method="POST">
+          <form class="mt-2" action="adduserdata.php" method="POST">
             <div class="form-group">
               <label for="usernameInput">Username</label>
               <input type="username" class="form-control" name="username" id="usernameInput" placeholder="Enter Username">
@@ -70,15 +51,13 @@ $status = $_SESSION['status'];
             </div>
             <!-- STATUS MESSAGES -->
             <?php
-            if ($previousAction == 'adduser') {
-              if ($status == 'success') {
+              if ($status == 'adduser-success') {
                 echo '<div class="alert alert-success mt-2" role="alert">Successfully added an user!</div>';
-              } elseif ($status == 'taken') {
+              } elseif ($status == 'adduser-taken') {
                 echo '<div class="alert alert-danger mt-2" role="alert">The username is taken!</div>';
-              } elseif ($status == 'error') {
+              } elseif ($status == 'adduser-error') {
                 echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
-            }
             ?>
           </form>
           <!-- LOGOUT MODAL -->
