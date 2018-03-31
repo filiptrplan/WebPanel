@@ -7,6 +7,7 @@ require_once 'inc/checksession.php';
 $users = Manager::getUsers();
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
 $status = $_GET['status'];
+
 ?>
 
 <head>
