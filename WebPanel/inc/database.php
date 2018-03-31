@@ -15,8 +15,7 @@ class DB
   public static function connect()
   {
     try {
-      $config = parse_ini_file("db.ini");
-      self::$conn = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'], $config['username'], $config['password']);
+      self::$conn = new PDO('mysql:host=' . Config::get('db_host') . ';dbname=' . Config::get('db_name'), Config::get('db_username'), Config::get('db_password'));
       self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
       self::$success = true;
