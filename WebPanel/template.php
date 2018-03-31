@@ -4,6 +4,7 @@
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
+
 $previousLocation = $_SESSION['previous-location'];
 $previousAction = $_SESSION['action'];
 $_SESSION['action'] = 'adduser';
