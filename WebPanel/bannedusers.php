@@ -4,14 +4,9 @@
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
-
 $users = Manager::getUsers();
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$status = $_SESSION['status'];
-$_SESSION['action'] = 'none';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+$status = $_GET['status'];
 ?>
 
   <head>
@@ -39,18 +34,17 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
         </div>
         <div class="col-md-10" id="content">
             <?php
-              if ($previousAction == 'pardonuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
-              } elseif ($previousAction == 'removeuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
+              if ($status == 'pardonuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
+              } 
+              if ($status == 'pardonuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
+              }
+              if ($status == 'removeuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
+              } 
+              if ($status == 'removeuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
             ?>
             <!-- USER LIST -->

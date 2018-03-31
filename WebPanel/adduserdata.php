@@ -1,20 +1,18 @@
 <?php
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
-
-$_SESSION['action'] = 'adduser';
-$location = $_SESSION['previous-location'];
-
+$status = '';
 if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type'])) {
   $result = Manager::addUser($_POST['username'], $_POST['password'], $_POST['type']);
   if ($result == 'success') {
-    $_SESSION['status'] = 'success';
+    $status = 'success';
   } elseif ($result == 'taken') {
-    $_SESSION['status'] = 'taken';
+    $status = 'taken';
   } else {
-    $_SESSION['status'] = 'error';
+    $status = 'error';
   }
 }
 
+$location = Misc::appendParameters($_SESSION['previous-location'], 'status', 'adduser-' . $status);
 header('Location: ' . $location);
 exit;

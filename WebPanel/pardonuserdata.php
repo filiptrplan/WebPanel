@@ -4,14 +4,14 @@ require_once 'inc/checksession.php';
 
 
 $id = $_POST['id'];
-$location = $_SESSION['previous-location'];
 $user = new User($id, 'id');
 if (Manager::pardonUser($user) == 1) {
-  $_SESSION['status'] = 'success';
+  $status = 'success';
 } else {
-  $_SESSION['status'] = 'error';
+  $status = 'error';
 }
-$_SESSION['action'] = 'pardonuser';
+
+$location = Misc::appendParameters($_SESSION['previous-location'], 'status', 'pardonuser-' . $status);
 
 header('Location: ' . $location);
 exit;

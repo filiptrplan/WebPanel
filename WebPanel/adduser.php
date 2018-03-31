@@ -4,12 +4,8 @@
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$_SESSION['action'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-$status = $_SESSION['status'];
-$_SESSION['status'] = 'none';
+$status = $_GET['status'];
 ?>
 
   <head>
@@ -55,15 +51,13 @@ $_SESSION['status'] = 'none';
             </div>
             <!-- STATUS MESSAGES -->
             <?php
-            if ($previousAction == 'adduser') {
-              if ($status == 'success') {
+              if ($status == 'adduser-success') {
                 echo '<div class="alert alert-success mt-2" role="alert">Successfully added an user!</div>';
-              } elseif ($status == 'taken') {
+              } elseif ($status == 'adduser-taken') {
                 echo '<div class="alert alert-danger mt-2" role="alert">The username is taken!</div>';
-              } elseif ($status == 'error') {
+              } elseif ($status == 'adduser-error') {
                 echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
-            }
             ?>
           </form>
           <!-- LOGOUT MODAL -->
