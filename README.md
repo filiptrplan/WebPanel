@@ -10,6 +10,7 @@ This is a web panel that is meant for managing users of a specific software. By 
     - [Usage](#usage)
     - [Credits](#credits)
     - [License](#license)
+    - [Changelog](#changelog)
 
 <!-- /TOC -->
 
@@ -49,3 +50,6 @@ Currently all credit goes to me 1234filip aka. Fomic
 
 ### License
 This project is licensed under the MIT license. It is included in the `LICENSE` file.
+
+### Changelog
+[Click here to open the changelog](CHANGELOG.md)
