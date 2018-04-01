@@ -69,7 +69,7 @@ if (isset($_GET['status'])) {
                     if ($user['ban'] == 1) {
                       echo '<tr>
                               <th scope="row">' . $user['id'] . '</th>
-                              <td>' . $user['username'] . '</td>
+                              <td class="username-field">' . $user['username'] . '</td>
                               <td>' . $user['hwid'] . '</td>
                               <td>' . $user['type'] . '</td>
                               <td>
