@@ -7,12 +7,11 @@ if(!isset($_GET['id'])){
   exit;
 }
 
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$_SESSION['action'] = 'adduser';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-$status = $_SESSION['status'];
+$status = '';
+if (isset($_GET['status'])) {
+  $status = $_GET['status'];
+}
 $user = new User($_GET['id'], 'id');
 ?>
 
