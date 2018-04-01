@@ -1,10 +1,10 @@
 $hover: #efefef;
 $selected: #dcdcdc;
- 
 #navbar {
     //height: 100vh;
     padding: 0px;
 }
+
 #content {
     height: 100vh;
 }
@@ -20,9 +20,19 @@ $selected: #dcdcdc;
 .navitem:active {
     background-color: $selected;
 }
+
 .selected {
     background-color: $selected;
 }
+
 .selected:hover {
     background-color: $selected;
+}
+
+.version-disclaimer {
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    opacity: 0.5;
+    padding: 0.5rem;
 }

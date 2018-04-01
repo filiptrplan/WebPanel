@@ -65,6 +65,7 @@
                 }
             }
           ?>
+          <p class="version-disclaimer-text"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
         </div>
         <div class="col-lg-4 align-self-end"></div>
       </div>

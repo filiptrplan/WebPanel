@@ -27,6 +27,7 @@ $status = $_GET['status'];
             <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
             <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
+            <p class="version-disclaimer"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
           </nav>
         </div>
         <div class="col-sm-10" id="content">
