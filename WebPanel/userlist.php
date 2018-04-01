@@ -2,20 +2,14 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
+require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$status = $_SESSION['status'];
-$_SESSION['action'] = 'none';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+$status = '';
+if (isset($_GET['status'])) {
+  $status = $_GET['status'];
+}
 
 ?>
 
@@ -23,9 +17,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/template.css">
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="css/main.min.css">
   <title>User List</title>
 </head>
 
@@ -39,16 +31,17 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
             <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
             <a class="nav-link navitem selected" href="#">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
+            <p class="version-disclaimer"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
         </nav>
       </div>
       <div class="col-md-10" id="content">
+        <input type="text" class="form-control mt-3 mb-3" id="search-input" aria-label="Search" placeholder="Search">
         <?php
-          if ($previousAction == 'banuser') {
-            if ($status == 'success') {
-              echo '<div class="alert alert-success mt-2" role="alert">Successfully banned the user!</div>';
-            } elseif ($status == 'error') {
-              echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-            }
+          if ($status == 'banuser-success') {
+            echo '<div class="alert alert-success mt-2" role="alert">Successfully banned the user!</div>';
+          } 
+          if ($status == 'banuser-error') {
+            echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
           }
         ?>
         <!-- USER LIST -->
@@ -58,7 +51,8 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
               <th scope="col">#</th>
               <th scope="col">Username</th>
               <th scope="col">HWID</th>
-              <th scope="col">Ban</th>
+              <th scope="col">Type</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -67,10 +61,15 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                 if ($user['ban'] == 0) {
                   echo '<tr>
                           <th scope="row">' . $user['id'] . '</th>
-                          <td>' . $user['username'] . '</td>
+                          <td class="username-field">' . $user['username'] . '</td>
                           <td>' . $user['hwid'] . '</td>
+                          <td>' . $user['type'] . '</td>
                           <td>
                           <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
+                          <form action="edituser.php" method="get" class="edit-form">
+                            <input type="hidden" value="' . $user['id'] . '" name="id">
+                            <input type="submit" class="btn btn-info editbtn" data-toggle="modal" value="Edit">
+                          </form>
                           </td>
                         </tr>';
                 }
@@ -92,7 +91,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                 Do you really want to ban this user?
               </div>
               <div class="modal-footer">
-                <form action="banuser.php" method="post">
+                <form action="banuserdata.php" method="post">
                   <input class="id-input" type="hidden" value="" name="id">
                   <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                   <input class="btn btn-danger" type="submit" value="Ban">
@@ -126,8 +125,8 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
       </div>
     </div>
   </div>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/userlist.js"></script>
+  <script src="js/plugins-dist.js"></script>
+  <script src="js/original/userlist.js"></script>
 </body>
 
 </html>

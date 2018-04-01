@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-  require_once 'inc/inc.php';
-  $previousLocation = $_SESSION['previous-location'];
-  $previousAction = $_SESSION['action'];
-  $_SESSION['action'] = 'login';
-  $_SESSION['status'] = 'none';
-  $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-  if (isset($_POST['username']) && isset($_POST['password'])) {
-      $result = Auth::login($_POST['username'], $_POST['password']);
-      if ($result == 'success') {
-          $_SESSION['user'] = new User($_POST['username'], 'username');
-          if (!$_SESSION['user']->isBanned()) {
-              if ($_SESSION['user']->isAdmin()) {
-                  header('Location: userlist.php');
-                  exit;
-              } 
-          } else {
-              unset($_SESSION['user']);
-              $result = 'banned';
-          }
+require_once 'inc/inc.php';
+$status = '';
+
+$_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+if (isset($_POST['username']) && isset($_POST['password'])) {
+  $result = Auth::login($_POST['username'], $_POST['password']);
+  if ($result == 'success') {
+    $_SESSION['user'] = new User($_POST['username'], 'username');
+    if (!$_SESSION['user']->isBanned()) {
+      if ($_SESSION['user']->isAdmin()) {
+        header('Location: userlist.php');
+        exit;
       }
-      $_SESSION['status'] = $result;
+    } else {
+      unset($_SESSION['user']);
+      $result = 'banned';
+    }
   }
-  $status = $_SESSION['status'];
+  $status = 'login-' . $result;
+}
 
 ?>
 
@@ -31,9 +28,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/login.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/main.min.css">
+    
     <title>Login</title>
   </head>
 
@@ -54,23 +50,23 @@
             <input type="submit" value="Login" class="btn btn-primary">
           </form>
           <?php
-            if ($previousAction == 'login') {
-                if ($status == 'success') {
-                    echo '<div class="alert alert-success mt-2" role="alert">Logged in!</div>';
-                } elseif ($status == 'invalid') {
-                    echo '<div class="alert alert-danger mt-2" role="alert">Invalid password!</div>';
-                } elseif ($status == 'noexist') {
-                    echo '<div class="alert alert-danger mt-2" role="alert">The user doesn\'t exist!</div>';
-                }elseif ($status == 'banned') {
-                    echo '<div class="alert alert-danger mt-2" role="alert">The user is banned!</div>';
-                }
-            }
-          ?>
+        if ($status == 'login-success') {
+          echo '<div class="alert alert-success mt-2" role="alert">Logged in!</div>';
+        } elseif ($status == 'login-invalid') {
+          echo '<div class="alert alert-danger mt-2" role="alert">Invalid password!</div>';
+        } elseif ($status == 'login-noexist') {
+          echo '<div class="alert alert-danger mt-2" role="alert">The user doesn\'t exist!</div>';
+        } elseif ($status == 'login-banned') {
+          echo '<div class="alert alert-danger mt-2" role="alert">The user is banned!</div>';
+        }
+      
+      ?>
+          <p class="version-disclaimer-text"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
         </div>
         <div class="col-lg-4 align-self-end"></div>
       </div>
     </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins-dist.js"></script>
   </body>
 
 </html>

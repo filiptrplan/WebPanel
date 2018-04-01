@@ -2,20 +2,15 @@
 <html lang="en">
 <?php
 require_once 'inc/inc.php';
-
-if (!isset($_SESSION['user']) || !$_SESSION['user']->isAdmin() || $_SESSION['user']->isBanned()) {
-  header('Location: login.php');
-  exit;
-}
-
+require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
-$previousLocation = $_SESSION['previous-location'];
-$previousAction = $_SESSION['action'];
-$status = $_SESSION['status'];
-$_SESSION['action'] = 'none';
-$_SESSION['status'] = 'none';
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
+$status = '';
+if (isset($_GET['status'])) {
+  $status = $_GET['status'];
+}
+
 ?>
 
   <head>
@@ -23,9 +18,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/template.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/main.min.css">
     <title>Banned users</title>
   </head>
 
@@ -39,22 +32,24 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
             <a class="nav-link navitem selected" href="#">Banned Users</a>
             <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
+            <p class="version-disclaimer">
+              <small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
           </nav>
         </div>
         <div class="col-md-10" id="content">
-            <?php
-              if ($previousAction == 'pardonuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
-              } elseif ($previousAction == 'removeuser') {
-                if ($status == 'success') {
-                  echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
-                } elseif ($status == 'error') {
-                  echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
-                }
+          <input type="text" class="form-control mt-3 mb-3" id="search-input" aria-label="Search" placeholder="Search">
+          <?php
+              if ($status == 'pardonuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
+              } 
+              if ($status == 'pardonuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
+              }
+              if ($status == 'removeuser-success') {
+                echo '<div class="alert alert-success mt-2" role="alert">Successfully removed the user!</div>';
+              } 
+              if ($status == 'removeuser-error') {
+                echo '<div class="alert alert-danger mt-2" role="alert">Unknown error!</div>';
               }
             ?>
             <!-- USER LIST -->
@@ -64,6 +59,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                   <th scope="col">#</th>
                   <th scope="col">Username</th>
                   <th scope="col">HWID</th>
+                  <th scope="col">Type</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -73,8 +69,9 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     if ($user['ban'] == 1) {
                       echo '<tr>
                               <th scope="row">' . $user['id'] . '</th>
-                              <td>' . $user['username'] . '</td>
+                              <td class="username-field">' . $user['username'] . '</td>
                               <td>' . $user['hwid'] . '</td>
+                              <td>' . $user['type'] . '</td>
                               <td>
                               <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
                               <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
@@ -99,7 +96,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to pardon this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="pardonuser.php" method="post">
+                    <form action="pardonuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-info" type="submit" value="Pardon">
@@ -122,7 +119,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
                     Do you really want to remove this user?
                   </div>
                   <div class="modal-footer">
-                    <form action="removeuser.php" method="post">
+                    <form action="removeuserdata.php" method="post">
                       <input class="id-input" type="hidden" value="" name="id">
                       <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                       <input class="btn btn-danger" type="submit" value="Remove">
@@ -156,7 +153,7 @@ $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
         </div>
       </div>
     </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins-dist.js"></script>
     <script src="js/userlist.js"></script>
   </body>
 
