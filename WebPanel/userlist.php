@@ -51,6 +51,7 @@ if (isset($_GET['status'])) {
               <th scope="col">#</th>
               <th scope="col">Username</th>
               <th scope="col">HWID</th>
+              <th scope="col">Type</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -62,6 +63,7 @@ if (isset($_GET['status'])) {
                           <th scope="row">' . $user['id'] . '</th>
                           <td class="username-field">' . $user['username'] . '</td>
                           <td>' . $user['hwid'] . '</td>
+                          <td>' . $user['type'] . '</td>
                           <td>
                           <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
                           <form action="edituser.php" method="get" class="edit-form">
