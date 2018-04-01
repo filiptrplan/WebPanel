@@ -6991,3 +6991,6 @@ a.text-dark:hover, a.text-dark:focus {
 
 .form {
   display: block; }
+
+.edit-form {
+  display: inline; }
