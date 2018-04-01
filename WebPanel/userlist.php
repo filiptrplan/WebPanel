@@ -15,11 +15,10 @@ $status = $_GET['status'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/main.min.css">
-  <script src="js/jquery-3.3.1.min.js"></script>
   <title>User List</title>
 </head>
 
-<body></body>
+<body>
   <div class="container-fluid">
     <!-- NAVIGATION -->
     <div class="row">
@@ -120,8 +119,8 @@ $status = $_GET['status'];
       </div>
     </div>
   </div>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/userlist.js"></script>
+  <script src="js/plugins-dist.js"></script>
+  <script src="js/original/userlist.js"></script>
 </body>
 
 </html>

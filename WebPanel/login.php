@@ -32,7 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.min.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    
     <title>Login</title>
   </head>
 
@@ -69,7 +69,7 @@
         <div class="col-lg-4 align-self-end"></div>
       </div>
     </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins-dist.js"></script>
   </body>
 
 </html>
