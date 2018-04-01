@@ -13,10 +13,8 @@ $status = $_GET['status'];
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/template.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+    <link rel="stylesheet" href="css/main.min.css">
     <title>Banned users</title>
   </head>
 
@@ -30,6 +28,7 @@ $status = $_GET['status'];
             <a class="nav-link navitem selected" href="#">Banned Users</a>
             <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
+            <p class="version-disclaimer"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
           </nav>
         </div>
         <div class="col-md-10" id="content">
@@ -146,7 +145,7 @@ $status = $_GET['status'];
         </div>
       </div>
     </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins-dist.js"></script>
     <script src="js/userlist.js"></script>
   </body>
 

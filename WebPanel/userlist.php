@@ -14,9 +14,7 @@ $status = $_GET['status'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/template.css">
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="css/main.min.css">
   <title>User List</title>
 </head>
 
@@ -30,6 +28,7 @@ $status = $_GET['status'];
             <a class="nav-link navitem" href="bannedusers.php">Banned Users</a>
             <a class="nav-link navitem selected" href="#">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
+            <p class="version-disclaimer"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
         </nav>
       </div>
       <div class="col-md-10" id="content">
@@ -62,7 +61,7 @@ $status = $_GET['status'];
                           <td>' . $user['hwid'] . '</td>
                           <td>
                           <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Ban</button>
-                          <form action="edituser.php" method="get">
+                          <form action="edituser.php" method="get" class="edit-form">
                             <input type="hidden" value="' . $user['id'] . '" name="id">
                             <input type="submit" class="btn btn-info editbtn" data-toggle="modal" value="Edit">
                           </form>
@@ -121,8 +120,8 @@ $status = $_GET['status'];
       </div>
     </div>
   </div>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/userlist.js"></script>
+  <script src="js/plugins-dist.js"></script>
+  <script src="js/original/userlist.js"></script>
 </body>
 
 </html>

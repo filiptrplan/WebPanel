@@ -31,9 +31,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/login.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/main.min.css">
+    
     <title>Login</title>
   </head>
 
@@ -66,11 +65,12 @@
                 }
             }
           ?>
+          <p class="version-disclaimer-text"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
         </div>
         <div class="col-lg-4 align-self-end"></div>
       </div>
     </div>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins-dist.js"></script>
   </body>
 
 </html>
