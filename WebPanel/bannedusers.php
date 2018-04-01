@@ -17,7 +17,7 @@ if (isset($_GET['status'])) {
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.min.css">
     <title>Banned users</title>
   </head>
@@ -32,11 +32,13 @@ if (isset($_GET['status'])) {
             <a class="nav-link navitem selected" href="#">Banned Users</a>
             <a class="nav-link navitem" href="userlist.php">User List</a>
             <a class="nav-link navitem" href="#" data-toggle="modal" data-target="#logoutmodal">Logout</a>
-            <p class="version-disclaimer"><small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
+            <p class="version-disclaimer">
+              <small>WebPanel v<?php echo Config::get('webpanel_version'); ?> by 1234filip</small></p>
           </nav>
         </div>
         <div class="col-md-10" id="content">
-            <?php
+          <input type="text" class="form-control mt-3 mb-3" id="search-input" aria-label="Search" placeholder="Search">
+          <?php
               if ($status == 'pardonuser-success') {
                 echo '<div class="alert alert-success mt-2" role="alert">Successfully pardoned the user!</div>';
               } 
