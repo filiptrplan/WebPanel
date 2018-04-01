@@ -6,7 +6,11 @@ require_once 'inc/checksession.php';
 
 $users = Manager::getUsers();
 $_SESSION['previous-location'] = $_SERVER['REQUEST_URI'];
-$status = $_GET['status'];
+$status = '';
+if (isset($_GET['status'])) {
+  $status = $_GET['status'];
+}
+
 ?>
 
   <head>
@@ -53,6 +57,7 @@ $status = $_GET['status'];
                   <th scope="col">#</th>
                   <th scope="col">Username</th>
                   <th scope="col">HWID</th>
+                  <th scope="col">Type</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -64,6 +69,7 @@ $status = $_GET['status'];
                               <th scope="row">' . $user['id'] . '</th>
                               <td>' . $user['username'] . '</td>
                               <td>' . $user['hwid'] . '</td>
+                              <td>' . $user['type'] . '</td>
                               <td>
                               <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
                               <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
