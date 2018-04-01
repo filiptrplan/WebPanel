@@ -1,4 +1,6 @@
 .center-anything {
+  //gotta set the width and height
+  //width: 20vw;
   float: right;
   height: 300px;
   position: absolute;
@@ -8,7 +10,6 @@
   left: 0;
   bottom: 0;
 }
-
-.form {
+.form{
   display: block;
 }

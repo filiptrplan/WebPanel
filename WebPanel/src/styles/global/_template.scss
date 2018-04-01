@@ -1,0 +1,28 @@
+$hover: #efefef;
+$selected: #dcdcdc;
+ 
+#navbar {
+    //height: 100vh;
+    padding: 0px;
+}
+#content {
+    height: 100vh;
+}
+
+.navitem {
+    color: black !important;
+}
+
+.navitem:hover {
+    background-color: $hover;
+}
+
+.navitem:active {
+    background-color: $selected;
+}
+.selected {
+    background-color: $selected;
+}
+.selected:hover {
+    background-color: $selected;
+}
