@@ -26,7 +26,7 @@ class Api
   }
   public static function registerUser($username, $password, $type, $authkey)
   {
-    if ($authkey == Config::get('api_authkey')) {
+    if ($authkey == self::encrypt($username . $password . $type)) {
       $result = Manager::addUser($username, $password, $type);
       if ($result == 'success') {
         $status = 'success';
@@ -40,25 +40,33 @@ class Api
     }
     return self::encrypt($status);
   }
-  public static function checkLogin($reqUsername, $reqPassword, $reqHwid)
+  public static function checkLogin($reqUsername, $reqPassword, $reqHwid, $authkey)
   {
-    $loggedIn = Auth::login($reqUsername, $reqPassword);
-    if ($loggedIn == 'success') {
-      $user = new User($reqUsername, 'username');
-      if (!$user->isBanned()) {
-        if ($user->getHWID() == '') {
-          Manager::setHWID($user, $reqHwid);
-          return self::encryptLogin($reqUsername, $reqHwid, $user->getType(), 'success');
-        } elseif ($user->getHWID() == $reqHwid) {
-          return self::encryptLogin($reqUsername, $reqHwid, $user->getType(), 'success');
+    $type = '0';
+    if ($authkey == self::encrypt($reqUsername . $reqPassword . $reqHwid)) {
+      $loggedIn = Auth::login($reqUsername, $reqPassword);
+      if ($loggedIn == 'success') {
+        $user = new User($reqUsername, 'username');
+        if (!$user->isBanned()) {
+          if ($user->getHWID() == '') {
+            Manager::setHWID($user, $reqHwid);
+            $type = $user->getType();
+            $status = 'success';
+          } elseif ($user->getHWID() == $reqHwid) {
+            $type = $user->getType();
+            $status = 'success';
+          } else {
+            $status = 'wronghwid';
+          }
         } else {
-          return self::encryptLogin($reqUsername, $reqHwid, '0', 'wronghwid');
+          $status = 'banned';
         }
       } else {
-        return self::encryptLogin($reqUsername, $reqHwid, '0', 'banned');
+        $status = 'invaliduserpass';
       }
-    } else {
-      return self::encryptLogin($reqUsername, $reqHwid, '0', 'invalid');
+    }else{
+      $status = 'invalidkey';
     }
+    return self::encryptLogin($reqUsername, $reqHwid, $type, $status);
   }
 }
