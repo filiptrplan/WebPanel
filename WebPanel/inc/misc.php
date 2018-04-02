@@ -12,4 +12,7 @@ class Misc
     $newurl = http_build_query($full_data);
     return $parsedurl['path'] . '?' . $newurl;
   }
+  public static function escapestr($str){
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+  }
 }
