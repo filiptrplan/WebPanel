@@ -32,6 +32,10 @@ class DB
   */
   public static function select($query, $params)
   {
+    foreach ($params as $key => &$value) {
+      $value = Misc::escapestr($value);
+    }
+    unset($value);
     try {
       $rows = array();
       $stmt = self::$conn->prepare($query);
@@ -52,6 +56,10 @@ class DB
   */
   public static function query($query, $params)
   {
+    foreach ($params as $key => &$value) {
+      $value = Misc::escapestr($value);
+    }
+    unset($value);
     try {
       $stmt = self::$conn->prepare($query);
       $result = $stmt->execute($params);
