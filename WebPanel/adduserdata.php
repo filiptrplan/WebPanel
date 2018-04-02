@@ -14,5 +14,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['type
 }
 
 $location = Misc::appendParameters($_SESSION['previous-location'], 'status', 'adduser-' . $status);
+if($status == 'error'){
+  $location = Misc::appendParameters($location, 'errormsg', $result);
+}
 header('Location: ' . $location);
 exit;

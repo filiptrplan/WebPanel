@@ -26,7 +26,7 @@ class Manager
     if($result == 1){
       return 'success';
     }else{
-      return 'error';
+      return $result;
     }
   }
   public static function removeUser($user)
