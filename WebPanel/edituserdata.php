@@ -2,22 +2,26 @@
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
-
-$id = $_POST['id'];
-$user = new User($id, 'id');
+if (isset($_POST['id']) && !empty($_POST['id'])) {
+  $id = $_POST['id'];
+  $user = new User($id, 'id');
+}
 $status = 'success';
 if (isset($_POST['hwid'])){
-  if(Manager::setHWID($user, $_POST['hwid']) != 1){
+  $result = Manager::setHWID($user, $_POST['hwid']);
+  if($result != 1){
     $status = 'error';
   }
 }
 if (isset($_POST['username']) && !empty($_POST['username'])){
-  if(Manager::setUsername($user, $_POST['username']) != 1){
+  $result = Manager::setUsername($user, $_POST['username']);
+  if($result != 1 && $_POST['username'] != $user->getUsername()){
     $status = 'error';
   }
 }
 if (isset($_POST['password']) && !empty($_POST['password'])){
-  if(Manager::setPassword($user, $_POST['password']) != 1){
+  $result = Manager::setPassword($user, $_POST['password']);
+  if($result != 1){
     $status = 'error';
   }
 }
