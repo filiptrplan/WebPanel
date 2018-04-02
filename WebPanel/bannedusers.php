@@ -73,8 +73,8 @@ if (isset($_GET['status'])) {
                               <td>' . $user['hwid'] . '</td>
                               <td>' . $user['type'] . '</td>
                               <td>
-                              <button type="button" class="btn btn-info banbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
-                              <button type="button" class="btn btn-danger banbtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
+                              <button type="button" class="btn btn-info pardonbtn" data-toggle="modal" data-target="#banmodal" data-id="' . $user['id'] .'">Pardon</button>
+                              <button type="button" class="btn btn-danger removebtn" data-toggle="modal" data-target="#removemodal" data-id="' . $user['id'] .'">Remove</button>
                               </td>
                             </tr>';
                     }
@@ -154,7 +154,7 @@ if (isset($_GET['status'])) {
       </div>
     </div>
     <script src="js/plugins-dist.js"></script>
-    <script src="js/userlist.js"></script>
+    <script src="js/original/bannedusers.js"></script>
   </body>
 
 </html>

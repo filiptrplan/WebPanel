@@ -1,39 +1,79 @@
 <?php
-
-class Api{
+class Api
+{
   /*
   PLEASE REFER TO THE LAST STEP OF THE INSTALLATION OF THE README
   IN THIS FOLDER!!!
   */
-  private static function encrypt($username, $hwid, $type, $status)
+  private static function encrypt($str)
   {
-    $encrypted = $username . $hwid . $status;
     //Replace the part between these comments
-    $encrypted = base64_encode($encrypted);
+    $encrypted = base64_encode($str);
     $encrypted = md5($encrypted);
     $encrypted = strrev($encrypted);
     //End of comments
-    return $encrypted . str_pad($type, 3, '0', STR_PAD_LEFT);
+    return $encrypted;
   }
 
-  public static function checkLogin($reqUsername, $reqPassword, $reqHwid){
-    $loggedIn = Auth::login($reqUsername, $reqPassword);
-    if ($loggedIn == 'success') {
-      $user = new User($reqUsername, 'username');
-      if (!$user->isBanned()) {
-        if ($user->getHWID() == '') {
-          Manager::setHWID($user, $reqHwid);
-          return self::encrypt($reqUsername, $reqHwid, $user->getType(), 'success');
-        } elseif ($user->getHWID() == $reqHwid) {
-          return self::encrypt($reqUsername, $reqHwid, $user->getType(), 'success');
-        } else {
-          return self::encrypt($reqUsername, $reqHwid, '0', 'wronghwid');
-        }
+  private static function encryptLogin($username, $hwid, $type, $status)
+  {
+    $str = $username . $hwid . $status;
+  
+    $encrypted = self::encrypt($str);
+  
+    return $encrypted . str_pad($type, 3, '0', STR_PAD_LEFT);
+  }
+  private static function checkAuthKey($key, $params){
+    $authkey = Config::get('api_authkey');
+    if($key == self::encrypt($authkey . $params)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  public static function registerUser($username, $password, $type, $authkey)
+  {
+    if (self::checkAuthKey($authkey, $username . $password)) {
+      $result = Manager::addUser($username, $password, $type);
+      if ($result == 'success') {
+        $status = 'success';
+      } elseif ($result == 'taken') {
+        $status = 'taken';
       } else {
-        return self::encrypt($reqUsername, $reqHwid, '0', 'banned');
+        $status = 'error';
       }
     } else {
-      return self::encrypt($reqUsername, $reqHwid, '0', 'invalid');
+      $status = 'invalidkey';
     }
+    return self::encrypt($status);
+  }
+  public static function checkLogin($reqUsername, $reqPassword, $reqHwid, $authkey)
+  {
+    $type = '0';
+    if (self::checkAuthKey($authkey, $reqUsername . $reqPassword . $reqHwid)) {
+      $loggedIn = Auth::login($reqUsername, $reqPassword);
+      if ($loggedIn == 'success') {
+        $user = new User($reqUsername, 'username');
+        if (!$user->isBanned()) {
+          if ($user->getHWID() == '') {
+            Manager::setHWID($user, $reqHwid);
+            $type = $user->getType();
+            $status = 'success';
+          } elseif ($user->getHWID() == $reqHwid) {
+            $type = $user->getType();
+            $status = 'success';
+          } else {
+            $status = 'wronghwid';
+          }
+        } else {
+          $status = 'banned';
+        }
+      } else {
+        $status = 'invaliduserpass';
+      }
+    }else{
+      $status = 'invalidkey';
+    }
+    return self::encryptLogin($reqUsername, $reqHwid, $type, $status);
   }
 }

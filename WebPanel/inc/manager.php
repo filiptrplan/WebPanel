@@ -26,7 +26,7 @@ class Manager
     if($result == 1){
       return 'success';
     }else{
-      return 'error';
+      return $result;
     }
   }
   public static function removeUser($user)
@@ -52,6 +52,10 @@ class Manager
   public static function setUsername($user, $username){
     $id = $user->getId();
     return DB::query('UPDATE users SET username=:username WHERE id=:id', array(':id' => $id, ':username' => $username));
+  }
+  public static function setType($user, $type){
+    $id = $user->getId();
+    return DB::query('UPDATE users SET type=:type WHERE id=:id', array(':id' => $id, ':type' => $type));
   }
   public static function setPassword($user, $password){
     $id = $user->getId();
