@@ -33,7 +33,7 @@ class Api
   }
   public static function registerUser($username, $password, $type, $authkey)
   {
-    if (self::checkAuthKey($authkey, $username . $password . $type)) {
+    if (self::checkAuthKey($authkey, $username . $password)) {
       $result = Manager::addUser($username, $password, $type);
       if ($result == 'success') {
         $status = 'success';
