@@ -48,6 +48,10 @@ $user = new User($_GET['id'], 'id');
               <input type="text" class="form-control" name="hwid" id="hwid" placeholder="HWID" value="<?php echo $user->getHWID(); ?>">
             </div>
             <div class="form-group">
+              <label for="hwid">Type</label>
+              <input type="text" class="form-control" name="type" id="type" placeholder="Type" value="<?php echo $user->getType(); ?>">
+            </div>
+            <div class="form-group">
               <label for="password">Password</label>
               <input type="text" class="form-control" name="password" id="password" placeholder="Password">
             </div>
