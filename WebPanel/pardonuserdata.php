@@ -3,7 +3,7 @@ require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
 $status = '';
-if (isset($_POST['id'])) {
+if (isset($_POST['id']) && !empty($_POST['id'])) {
   $id = $_POST['id'];
   $user = new User($id, 'id');
   $result = Manager::pardonUser($user);
