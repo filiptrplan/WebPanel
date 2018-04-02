@@ -2,15 +2,22 @@
 require_once 'inc/inc.php';
 require_once 'inc/checksession.php';
 
-$id = $_POST['id'];
-$location = $_SESSION['previous-location'];
-$user = new User($id, 'id');
-if (Manager::banUser($user) == 1) {
-  $_SESSION['status'] = 'success';
-} else {
-  $_SESSION['status'] = 'error';
+$status = '';
+if (isset($_POST['id'])) {
+  $id = $_POST['id'];
+  $user = new User($id, 'id');
+  $result = Manager::banUser($user);
+  if ($result == 1) {
+    $status = 'success';
+  } else {
+    $status = 'error';
+  }
 }
-$_SESSION['action'] = 'banuser';
+
+$location = Misc::appendParameters($_SESSION['previous-location'], 'status', 'banuser-' . $status);
+if ($status == 'error') {
+  $location = Misc::appendParameters($location, 'errormsg', $result);
+}
 
 header('Location: ' . $location);
 exit;
