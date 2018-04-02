@@ -24,9 +24,17 @@ class Api
   
     return $encrypted . str_pad($type, 3, '0', STR_PAD_LEFT);
   }
+  private static function checkAuthKey($key, $params){
+    $authkey = Config::get('api_authkey');
+    if($key == self::encrypt($authkey . $params)){
+      return true;
+    }else{
+      return false;
+    }
+  }
   public static function registerUser($username, $password, $type, $authkey)
   {
-    if ($authkey == self::encrypt($username . $password . $type)) {
+    if (self::checkAuthKey($authkey, $username . $password . $type)) {
       $result = Manager::addUser($username, $password, $type);
       if ($result == 'success') {
         $status = 'success';
@@ -43,7 +51,7 @@ class Api
   public static function checkLogin($reqUsername, $reqPassword, $reqHwid, $authkey)
   {
     $type = '0';
-    if ($authkey == self::encrypt($reqUsername . $reqPassword . $reqHwid)) {
+    if (self::checkAuthKey($authkey, $reqUsername . $reqPassword . $reqHwid)) {
       $loggedIn = Auth::login($reqUsername, $reqPassword);
       if ($loggedIn == 'success') {
         $user = new User($reqUsername, 'username');
