@@ -54,5 +54,4 @@ encrypt($username . $hwid . $status) . $paddedtype;
    - `banned` - The user is banned
    - `invaliduserpass` - The username or password is invalid
    - `success` - Success!
-   - 
 *Disclaimer*: The last 3 digits of the response(`$paddedtype`) are the user type. If the type is less than 3 digits, it is padded with zeros to fill it. If the user doesn't exist/he has the wrong HWID the last 3 digits are always `000`.
