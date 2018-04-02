@@ -25,6 +25,13 @@ if (isset($_POST['password']) && !empty($_POST['password'])){
     $status = 'error';
   }
 }
+if (isset($_POST['type']) && !empty($_POST['type'])) {
+  $result = Manager::setType($user, $_POST['type']);
+  if ($result != 1) {
+    $status = 'error';
+  }
+}
+
 
 $location = Misc::appendParameters($_SESSION['previous-location'], 'status', 'edituser-' . $status);
 header('Location: ' . $location);

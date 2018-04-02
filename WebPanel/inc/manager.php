@@ -53,6 +53,10 @@ class Manager
     $id = $user->getId();
     return DB::query('UPDATE users SET username=:username WHERE id=:id', array(':id' => $id, ':username' => $username));
   }
+  public static function setType($user, $type){
+    $id = $user->getId();
+    return DB::query('UPDATE users SET type=:type WHERE id=:id', array(':id' => $id, ':type' => $type));
+  }
   public static function setPassword($user, $password){
     $id = $user->getId();
     $options = [
