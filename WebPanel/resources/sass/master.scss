@@ -1,0 +1,46 @@
+.sidebar{
+    background-color: $gray-100;
+    padding: 0;
+    .router-link-active{
+        background-color: $gray-300;
+        cursor: default;
+        &:hover{
+            background-color: $gray-300 !important;
+        }
+    }
+}
+
+.sidebar-item{
+    vertical-align: middle;
+    color: black;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+    &:hover{
+        background-color: $gray-200;
+        color: black;
+        text-decoration: none;
+    }
+    p{
+        color: black;
+        margin: 0;
+        padding: 10px;
+    }
+    .dropdown-divider{
+        margin: 0;
+    }
+}
+
+.content-title{
+    margin-top: 10px;
+}
+
+body, html {
+    height: 100%;
+}
+.container-fluid{
+    height: 100%;
+}
+
+

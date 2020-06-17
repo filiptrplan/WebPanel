@@ -10928,7 +10928,69 @@ a.text-dark:focus {
   }
 }
 
+/*
+Here you can customize the colors of the web panel.
+All the variables used are the default variables that come with Bootstrap
+For more information on which variables to use refer to this: https://getbootstrap.com/docs/4.0/getting-started/theming/
+*/
+
 #login-card {
   margin: auto;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 0;
+}
+
+.sidebar .router-link-active {
+  background-color: #dee2e6;
+  cursor: default;
+}
+
+.sidebar .router-link-active:hover {
+  background-color: #dee2e6 !important;
+}
+
+.sidebar-item {
+  vertical-align: middle;
+  color: black;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.sidebar-item:hover {
+  background-color: #e9ecef;
+  color: black;
+  text-decoration: none;
+}
+
+.sidebar-item p {
+  color: black;
+  margin: 0;
+  padding: 10px;
+}
+
+.sidebar-item .dropdown-divider {
+  margin: 0;
+}
+
+.content-title {
+  margin-top: 10px;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  height: 100%;
 }
 

@@ -19,9 +19,9 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), $checkRules);
 
         if ($validator->fails()) {
-            return Redirect::to('login')
-                ->withErrors($validator) // send back all errors to the login form
-                ->withInput($request->except('password')); // send back the input (not the password) so that we can repopulate the form
+            return redirect('login')
+                ->withErrors($validator)
+                ->withInput($request->except('password'));
         } else {
             $credentials = $request->only('username', 'password');
             $remember = $request->input('rememberCheckbox');
@@ -29,7 +29,9 @@ class LoginController extends Controller
             if (Auth::attempt($credentials, $remember)) {
                 return redirect()->intended('welcome');
             } else {
-                return redirect()->back()->withErrors(['msg' => 'Invalid username or password!']);
+                return redirect()->back()
+                    ->withErrors(['msg' => 'Invalid username or password!'])
+                    ->withInput($request->except('password'));
             }
         }
     }
