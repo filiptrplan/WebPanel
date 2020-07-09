@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const USERS = gql`
-    query {
-        users {
+    query Users($first: Int!, $page: Int){
+        users(first: $first, page: $page) {
             data {
                 id
                 username
@@ -12,7 +12,20 @@ export const USERS = gql`
             }
             paginatorInfo {
                 currentPage
-                count
+                lastPage
+            }
+        }
+    }
+`;
+
+export const FIND_USER = gql`
+    query User($id: ID!){
+        user(id: $id){
+            username
+            email
+            roles {
+                id
+                name
             }
         }
     }

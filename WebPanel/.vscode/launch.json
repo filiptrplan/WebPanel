@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+        "request": "launch",
+        "name": "vuejs: chrome",
+        "url": "http://localhost:8083",
+        "webRoot": "${workspaceFolder}/public",
+        //"runtimeExecutable": "/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+        "sourceMapPathOverrides": {
+            "${workspaceFolder}/public/node_modules/*": "${workspaceFolder}/node_modules/*",
+            "webpack:///resources/js/*": "${workspaceFolder}/resources/js/*",
+            "webpack:///./node_modules/*": "${workspaceFolder}/node_modules/*"
+        }
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "vuejs: firefox",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }]
+    }
+  ]
+}

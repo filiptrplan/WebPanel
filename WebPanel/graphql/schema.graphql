@@ -14,7 +14,7 @@ type Query @middleware(checks: ["auth:api"]){
     roles: [Role!]! @all
 }
 
-type Mutation{
+type Mutation {
     createUser(input: UserCreateInput @spread): User @create
     updateUser(input: UserUpdateInput @spread): User @update
     deleteUser(id: ID!): User @delete
@@ -39,12 +39,13 @@ input UserCreateInput{
 
 input UserUpdateInput{
     id: ID!
-    username: String! @rules(apply: ["unique:users,username"])
-    email: String! @rules(apply: ["email","unique:users,email"])
-    password: String!
-    roles: RoleBelongsToMany!
+    username: String @rules(apply: ["unique:users,username"])
+    email: String @rules(apply: ["email","unique:users,email"])
+    password: String @rules(apply: ["min:5"])
+    roles: RoleBelongsToMany
 }
 
+# https://lighthouse-php.com/4.12/eloquent/nested-mutations.html#belongs-to-many
 input RoleBelongsToMany{
     connect: [ID!]
     # Use sync for updates as it will delete the previous roles
