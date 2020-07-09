@@ -11,6 +11,7 @@ type Query @middleware(checks: ["auth:api"]){
     me: User @auth
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
+    roles: [Role!]! @all
 }
 
 type Mutation{

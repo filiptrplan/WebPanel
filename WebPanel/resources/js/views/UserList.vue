@@ -34,34 +34,10 @@
         },
         methods: {
             loadRoles: function () {
-                axios.get('api/roles')
-                    .then((response) => {
-                        this.roles = response.data.data;
-                        this.loadUsers();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+
             },
             loadUsers: function () {
-                axios.get('/api/users')
-                    .then((response) => {
-                        this.users = response.data.data;
-                        //Match the role names to each user role IDs
-                        this.users.forEach(function (user) {
-                            user.roleNames = [];
-                            user.roles.forEach(function (userRole) {
-                                this.roles.forEach(function (role) {
-                                    if (userRole === role.id) {
-                                        user.roleNames.push(role.name);
-                                    }
-                                })
-                            });
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                
             }
         }
     }

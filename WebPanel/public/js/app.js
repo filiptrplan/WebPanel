@@ -7869,37 +7869,8 @@ __webpack_require__.r(__webpack_exports__);
     this.loadRoles();
   },
   methods: {
-    loadRoles: function loadRoles() {
-      var _this = this;
-
-      axios.get('api/roles').then(function (response) {
-        _this.roles = response.data.data;
-
-        _this.loadUsers();
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    loadUsers: function loadUsers() {
-      var _this2 = this;
-
-      axios.get('/api/users').then(function (response) {
-        _this2.users = response.data.data; //Match the role names to each user role IDs
-
-        _this2.users.forEach(function (user) {
-          user.roleNames = [];
-          user.roles.forEach(function (userRole) {
-            this.roles.forEach(function (role) {
-              if (userRole === role.id) {
-                user.roleNames.push(role.name);
-              }
-            });
-          });
-        });
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
+    loadRoles: function loadRoles() {},
+    loadUsers: function loadUsers() {}
   }
 });
 
