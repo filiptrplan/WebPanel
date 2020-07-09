@@ -1,5 +1,17 @@
 import gql from "graphql-tag"
 
+export const UPDATE_USER = gql`
+    mutation($input: UserUpdateInput!){
+        updateUser(input: $input){
+            username
+            roles {
+                id
+                name
+            }
+        }
+    }
+`;
+
 export const LOGIN_USER = gql`
     mutation($input: LoginInput!) {
         login(input: $input){
