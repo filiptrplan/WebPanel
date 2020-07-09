@@ -12,6 +12,11 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js','public/js/app.js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss',
+        'public/css/sass.css')
+    .styles(['public/css/sass.css', './node_modules/vue-multiselect/dist/vue-multiselect.min.css'], 'public/css/app.css');
+
+//This is for WSL2 compatibility
+// mix.browserSync('172.25.160.1:8083');
 
 mix.browserSync('localhost:8083');

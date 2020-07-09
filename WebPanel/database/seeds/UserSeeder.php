@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $adminUser = new User(['username' => 'admin', 'email' => 'admin@example.com', 'password' => Hash::make('admin')]);
+        $adminUser = new User(['username' => 'admin', 'email' => 'admin@example.com', 'password' => 'admin']);
         $adminRole = Role::where('name', 'Administrator')->first();
         $adminUser->save();
         $adminUser->roles()->save($adminRole);

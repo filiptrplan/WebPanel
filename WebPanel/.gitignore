@@ -1,5 +1,6 @@
 /node_modules
 /public/hot
+/public/docs
 /public/storage
 /storage/*.key
 /vendor
@@ -10,3 +11,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+_lighthouse_ide_helper.php
+.graphqlconfig
+/.idea/
+/.editorconfig

@@ -1,0 +1,56 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sO`, e.g. `2020-04-20T13:53:12+02:00`."
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+
+type Query @middleware(checks: ["auth:api"]){
+    me: User @auth
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+}
+
+type Mutation{
+    createUser(input: UserCreateInput @spread): User @create
+    updateUser(input: UserUpdateInput @spread): User @update
+    deleteUser(id: ID!): User @delete
+}
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    password: String
+    roles: [Role!] @belongsToMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+input UserCreateInput{
+    username: String! @rules(apply: ["unique:users,username"])
+    email: String! @rules(apply: ["email","unique:users,email"])
+    password: String!
+    roles: RoleBelongsToMany!
+}
+
+input UserUpdateInput{
+    id: ID!
+    username: String! @rules(apply: ["unique:users,username"])
+    email: String! @rules(apply: ["email","unique:users,email"])
+    password: String!
+    roles: RoleBelongsToMany!
+}
+
+input RoleBelongsToMany{
+    connect: [ID!]
+    # Use sync for updates as it will delete the previous roles
+    sync: [ID!]
+}
+
+type Role{
+    id: ID!
+    name: String
+}

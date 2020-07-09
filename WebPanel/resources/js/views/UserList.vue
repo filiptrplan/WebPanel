@@ -14,7 +14,7 @@
                 <td>{{user.id}}</td>
                 <td>{{user.username}}</td>
                 <td><p v-for="role in user.roleNames">{{role}}  </p></td>
-                <td><i class="fas fa-trash"></i></td>
+                <td><action-button class="btn-warning fa-user-edit" v-bind:user-id=1 api-action="edit"></action-button></td>
             </tr>
         </table>
     </div>
@@ -29,14 +29,15 @@
             }
         },
         mounted() {
+            //First load the roles and then the users because the requests are async
             this.loadRoles();
-            this.loadUsers();
         },
         methods: {
             loadRoles: function () {
                 axios.get('api/roles')
                     .then((response) => {
                         this.roles = response.data.data;
+                        this.loadUsers();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -46,11 +47,11 @@
                 axios.get('/api/users')
                     .then((response) => {
                         this.users = response.data.data;
-                        let roles = this.roles;
+                        //Match the role names to each user role IDs
                         this.users.forEach(function (user) {
                             user.roleNames = [];
                             user.roles.forEach(function (userRole) {
-                                roles.forEach(function (role) {
+                                this.roles.forEach(function (role) {
                                     if (userRole === role.id) {
                                         user.roleNames.push(role.name);
                                     }

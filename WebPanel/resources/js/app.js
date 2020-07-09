@@ -1,26 +1,30 @@
+"use strict";
+
+// eslint-disable-next-line no-undef
 require('./bootstrap');
 
 //Load Vue
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import router from './router';
+import apolloProvider from './apollo';
+import store from './store';
+import VueCookie from 'vue-cookie';
 
-Vue.use(VueRouter);
+import Multiselect from "vue-multiselect";
+import ActionButton from "./components/ActionButton";
+import ErrorAlert from "./components/ErrorAlert";
 
-import App from './views/App.vue'
-import UserList from './views/UserList'
-import Login from './views/Login'
+Vue.component('action-button', ActionButton);
+Vue.component('multiselect', Multiselect);
+Vue.component('error-alert', ErrorAlert);
 
-const router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {
-            path: '/users',
-            component: UserList,
-        },
-    ],
-});
+Vue.use(VueCookie);
 
-new Vue({
+const app = new Vue({
     router,
-    render: h => h(App)
-}).$mount('#app')
+    apolloProvider,
+    store,
+    render: h => h('router-view')
+}).$mount('#app');
+
+store.$app = app;

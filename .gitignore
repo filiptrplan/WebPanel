@@ -1,2 +1,5 @@
 *.exe
 prepros-6.config
+_lighthouse_ide_helper.php
+programmatic-types.graphql
+schema-directives.graphql

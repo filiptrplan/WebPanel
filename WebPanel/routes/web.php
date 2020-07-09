@@ -14,18 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Authentication routes
-Route::get('login', function(){
-    return view('auth.login');
-})->name('login');
 
-Route::get('logout', function(){
-    Auth::logout();
-    return view('auth.login');
-});
-
-Route::post('authenticate', 'LoginController@authenticate');
-
-
-Route::get('/{any}', 'SpaController@index')->where('any', '.*')->middleware('auth');
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 

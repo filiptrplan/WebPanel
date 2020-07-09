@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->group(function() {
-    Route::get('users', 'Api\UserAdminController@index');
 
-    Route::get('roles', 'Api\RoleController@index');
 });
 
 
