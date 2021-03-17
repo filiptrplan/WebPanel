@@ -1,4 +1,7 @@
 # Web Panel
+
+# THIS REPO IS DEPRECATED AND INSECURE! DO NOT USE IN PRODUCTION!
+
 ### Description
 This is a web panel that is meant for managing users of a specific software. By default it includes a web panel from where you can add, remove and ban users. There is also an HWID field that can be customized but as this panel is meant mostly for software owners it is included by default.
 
